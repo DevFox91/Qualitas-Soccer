@@ -1,4 +1,4 @@
-package com.example.webConstructors;
+package com.example.appqs.webConstructors;
 
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;

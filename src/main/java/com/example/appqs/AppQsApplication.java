@@ -6,7 +6,7 @@ import com.example.appqs.views.FTutor;
 import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
-import com.example.webConstructors.MenuSuperior;
+import com.example.appqs.webConstructors.MenuSuperior;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Panel;
