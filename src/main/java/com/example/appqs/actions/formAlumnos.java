@@ -12,20 +12,32 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class formAlumnos extends VerticalLayout {
-
+    // Defino las clases necesarias para los métodos 
     private Button enviarButton;
+    private Button guardarButton;
+    private TextField nombreField;
+    private TextField apellido1Field;
+    private TextField apellido2Field;
+    private DateField fechaNacimientoField;
+    private TextField direccionField;
+    private TextField codigoPostalField;
+    private TextField alergiasField;
+    private TextField colegioField;
+    private TextField equipoAnteriorField;
+    private int id;
 
+    //Primer constructor, no se le pasan parámetros porque construye formulario vacío para añadir un nuevo alumno.
     public formAlumnos() {
         // Crear los campos del formulario
-        TextField nombreField = new TextField("Nombre");
-        TextField apellido1Field = new TextField("Primer Apellido");
-        TextField apellido2Field = new TextField("Segundo Apellido");
-        DateField fechaNacimientoField = new DateField("Fecha de Nacimiento");
-        TextField direccionField = new TextField("Dirección");
-        TextField codigoPostalField = new TextField("Código Postal");
-        TextField alergiasField = new TextField("Alergias");
-        TextField colegioField = new TextField("Colegio");
-        TextField equipoAnteriorField = new TextField("Equipo Anterior");
+        this.nombreField = new TextField("Nombre");
+        this.apellido1Field = new TextField("Primer Apellido");
+        this.apellido2Field = new TextField("Segundo Apellido");
+        this.fechaNacimientoField = new DateField("Fecha de Nacimiento");
+        this.direccionField = new TextField("Dirección");
+        this.codigoPostalField = new TextField("Código Postal");
+        this.alergiasField = new TextField("Alergias");
+        this.colegioField = new TextField("Colegio");
+        this.equipoAnteriorField = new TextField("Equipo Anterior");
 
         // Crear el formulario
         FormLayout formLayout = new FormLayout();
@@ -40,9 +52,76 @@ public class formAlumnos extends VerticalLayout {
                 colegioField,
                 equipoAnteriorField);
 
+        // Llamada al método que crea un botón "enviar"
+        createButtonEnviar();
+
+        // Llamada al método que lee los datos del formulario de añadir un nuevo Alumno
+        leerFormularioEnviarAlumno();
+
+        // Agregar el formulario y el botón al diseño vertical
+        addComponents(formLayout, enviarButton);
+    }
+
+    //Segundo constructor, se trae los datos de la base de datos, según la id del alumno sobre la cual ejecutamos
+    public formAlumnos(int id, String nombre, String apellido1, String apellido2,
+            Date fechaNacimiento, String direccion, int codigoPostal,
+            String alergias, String colegio, String equipoAnterior) {
+
+        // Crear el campo para el ID
+        this.id = id;
+        TextField idField = new TextField("ID", String.valueOf(id));
+        idField.setEnabled(false); // El campo de ID no es editable
+
+        // Crear los campos del formulario y establecerles los valores recibidos
+        this.nombreField = new TextField("Nombre", nombre);
+        this.apellido1Field = new TextField("Primer Apellido", apellido1);
+        this.apellido2Field = new TextField("Segundo Apellido", apellido2);
+        this.fechaNacimientoField = new DateField("Fecha de Nacimiento");
+        if (fechaNacimiento != null) {
+            fechaNacimientoField.setValue(fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        this.direccionField = new TextField("Dirección", direccion);
+        this.codigoPostalField = new TextField("Código Postal", String.valueOf(codigoPostal));
+        this.alergiasField = new TextField("Alergias", alergias);
+        this.colegioField = new TextField("Colegio", colegio);
+        this.equipoAnteriorField = new TextField("Equipo Anterior", equipoAnterior);
+
+        // Crear el formulario
+        FormLayout formLayout = new FormLayout();
+        formLayout.addComponents(
+                idField,
+                nombreField,
+                apellido1Field,
+                apellido2Field,
+                fechaNacimientoField,
+                direccionField,
+                codigoPostalField,
+                alergiasField,
+                colegioField,
+                equipoAnteriorField);
+
+        // Llamada al método que crea un botón "guardar"
+        createButtonGuardar();
+
+        // Llamada al método que lee los datos de una "id" en la base de datos
+        updateAlumno();
+
+        // Agregar el formulario y el botón al diseño vertical
+        addComponents(formLayout, guardarButton);
+    }
+
+
+    public void createButtonEnviar() {
         // Crear el botón para enviar el formulario
         enviarButton = new Button("Enviar");
+    }
 
+    public void createButtonGuardar() {
+        // Crear el botón para enviar el formulario
+        guardarButton = new Button("Guardar");
+    }
+
+    public void leerFormularioEnviarAlumno() {
         // Agregar el listener para el evento del botón de enviar
         enviarButton.addClickListener(event -> {
             // Obtener los valores de los campos del formulario
@@ -60,7 +139,7 @@ public class formAlumnos extends VerticalLayout {
             // Insertar los datos en la tabla PERSONAL
             int tipoPersona = 1; // Asignación inicial
             formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
-        direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
+                    direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
 
             // Limpiar los campos del formulario después de enviar los datos
             nombreField.clear();
@@ -73,67 +152,18 @@ public class formAlumnos extends VerticalLayout {
             colegioField.clear();
             equipoAnteriorField.clear();
         });
-
-        // Agregar el formulario y el botón al diseño vertical
-        addComponents(formLayout, enviarButton);
     }
-
-    public formAlumnos(int id, String nombre, String apellido1, String apellido2,
-                       Date fechaNacimiento, String direccion, int codigoPostal,
-                       String alergias, String colegio, String equipoAnterior) {
-
-        // Crear el campo para el ID
-        TextField idField = new TextField("ID", String.valueOf(id));
-        idField.setEnabled(false); // El campo de ID no es editable
-
-        // Crear los campos del formulario y establecerles los valores recibidos
-        TextField nombreField = new TextField("Nombre", nombre);
-        TextField apellido1Field = new TextField("Primer Apellido", apellido1);
-        TextField apellido2Field = new TextField("Segundo Apellido", apellido2);
-        DateField fechaNacimientoField = new DateField("Fecha de Nacimiento");
-        if (fechaNacimiento != null) {
-            fechaNacimientoField.setValue(fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        }
-        TextField direccionField = new TextField("Dirección", direccion);
-        TextField codigoPostalField = new TextField("Código Postal", String.valueOf(codigoPostal));
-        TextField alergiasField = new TextField("Alergias", alergias);
-        TextField colegioField = new TextField("Colegio", colegio);
-        TextField equipoAnteriorField = new TextField("Equipo Anterior", equipoAnterior);
-
-        // Crear el formulario
-        FormLayout formLayout = new FormLayout();
-        formLayout.addComponents(
-                idField,
-                nombreField,
-                apellido1Field,
-                apellido2Field,
-                fechaNacimientoField,
-                direccionField,
-                codigoPostalField,
-                alergiasField,
-                colegioField,
-                equipoAnteriorField);
-
-        // Crear el botón para enviar el formulario
-        enviarButton = new Button("Guardar");
+    public void updateAlumno(){
 
         // Agregar el listener para el evento del botón de enviar
-        enviarButton.addClickListener(event -> {
+        guardarButton.addClickListener(event -> {
             // Actualizar los datos en la base de datos
             formAlumnosToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(), apellido2Field.getValue(),
                     Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
                     direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), alergiasField.getValue(),
                     colegioField.getValue(), equipoAnteriorField.getValue());
-                // Mostrar mensaje de éxito
-    Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
+            // Mostrar mensaje de éxito
+            Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
         });
-
-        // Agregar el formulario y el botón al diseño vertical
-        addComponents(formLayout, enviarButton);
-    }
-
-    public void setEnviarButtonListener(Button.ClickListener listener) {
-        // Configura el listener para el botón de enviar
-        enviarButton.addClickListener(listener);
     }
 }
