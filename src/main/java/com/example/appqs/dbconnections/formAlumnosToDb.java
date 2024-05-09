@@ -51,7 +51,7 @@ public class formAlumnosToDb {
         }
     }
 
-    // Método para actualizar datos en la base de datos
+    // Método para actualizar datos en la base de datos de postgresql
     public static void updatePersonalData(int id, String nombre, String apellido1, String apellido2,
             Date fechaNacimiento,
             String direccion, int codigoPostal, String alergias, String colegio, String equipoAnterior) {
