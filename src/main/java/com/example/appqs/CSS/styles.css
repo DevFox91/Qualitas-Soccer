@@ -1,0 +1,11 @@
+/* Estilos para el botón Enviar */
+.enviar-button {
+    background-color: blue; /* Fondo azul */
+    color: white; /* Texto blanco */
+}
+
+/* Estilos para el botón Guardar */
+.guardar-button {
+    background-color: orange; /* Fondo naranja */
+    color: white; /* Texto blanco */
+}

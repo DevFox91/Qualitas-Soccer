@@ -4,10 +4,12 @@ import java.util.Date;
 
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.actions.formAlumnos;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+@StyleSheet("/com/example/appqs/CSS/styles.css")
 public class editAlumno extends VerticalLayout {
     private formAlumnos formAlumnos;
 

@@ -7,6 +7,7 @@ import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.MenuSuperior;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Panel;
@@ -24,6 +25,7 @@ public class AppQsApplication {
         SpringApplication.run(AppQsApplication.class, args);
     }
 
+    @StyleSheet("/com/example/appqs/CSS/styles.css")
     @SpringUI
     public static class MainUI extends UI {
 

@@ -5,12 +5,15 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import com.vaadin.ui.Notification;
 import com.example.appqs.dbconnections.formAlumnosToDb;
+import com.example.appqs.webConstructors.ControlUI;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+@StyleSheet("/com/example/appqs/CSS/styles.css")
 public class formAlumnos extends VerticalLayout {
     // Defino las clases necesarias para los métodos 
     private Button enviarButton;
@@ -53,7 +56,7 @@ public class formAlumnos extends VerticalLayout {
                 equipoAnteriorField);
 
         // Llamada al método que crea un botón "enviar"
-        createButtonEnviar();
+        enviarButton = ControlUI.createButtonEnviar();
 
         // Llamada al método que lee los datos del formulario de añadir un nuevo Alumno
         leerFormularioEnviarAlumno();
@@ -101,24 +104,13 @@ public class formAlumnos extends VerticalLayout {
                 equipoAnteriorField);
 
         // Llamada al método que crea un botón "guardar"
-        createButtonGuardar();
+        guardarButton = ControlUI.createButtonGuardar();
 
         // Llamada al método que lee los datos de una "id" en la base de datos
         updateAlumno();
 
         // Agregar el formulario y el botón al diseño vertical
         addComponents(formLayout, guardarButton);
-    }
-
-
-    public void createButtonEnviar() {
-        // Crear el botón para enviar el formulario
-        enviarButton = new Button("Enviar");
-    }
-
-    public void createButtonGuardar() {
-        // Crear el botón para enviar el formulario
-        guardarButton = new Button("Guardar");
     }
 
     public void leerFormularioEnviarAlumno() {
