@@ -1,9 +1,7 @@
 package com.example.appqs.actions;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.TextField;
 
@@ -21,27 +19,28 @@ public class obtenerAlumno {
     String nombre;
     int tipoPersona;
 
-    public void obtenerAlumnos(TextField nombreField, TextField apellido1Field,
-        TextField apellido2Field, DateField fechaNacimientoField,
-        TextField direccionField, TextField codigoPostalField,
-        TextField alergiasField, TextField colegioField,
-        TextField equipoAnteriorField) {
-    this.nombre = nombreField.isEmpty() ? "" : nombreField.getValue();
-    this.apellido1 = apellido1Field.isEmpty() ? "" : apellido1Field.getValue();
-    this.apellido2 = apellido2Field.isEmpty() ? "" : apellido2Field.getValue();
-    
-    // Obtener la fecha de nacimiento, establecer una fecha predeterminada si está vacía
-    if (fechaNacimientoField.isEmpty()) {
-        this.fechaNacimiento = Date.from(LocalDate.of(1991, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    public Object[] obtenerAlumnos(TextField nombreField, TextField apellido1Field,
+            TextField apellido2Field, DateField fechaNacimientoField,
+            TextField direccionField, TextField codigoPostalField,
+            TextField alergiasField, TextField colegioField,
+            TextField equipoAnteriorField) {
+    String nombre = nombreField.isEmpty() ? "" : nombreField.getValue();
+    String apellido1 = apellido1Field.isEmpty() ? "" : apellido1Field.getValue();
+    String apellido2 = apellido2Field.isEmpty() ? "" : apellido2Field.getValue();
+    Date fechaNacimiento;
+    if (!fechaNacimientoField.isEmpty()) {
+        LocalDate fechaNacimientoLocalDate = fechaNacimientoField.getValue();
+        fechaNacimiento = Date.valueOf(fechaNacimientoLocalDate);
     } else {
-        this.fechaNacimiento = Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        fechaNacimiento = Date.valueOf(LocalDate.of(1900, 1, 1));
     }
-    
-    this.direccion = direccionField.isEmpty() ? "" : direccionField.getValue();
-    this.codigoPostal = codigoPostalField.isEmpty() ? 0 : Integer.parseInt(codigoPostalField.getValue());
-    this.alergias = alergiasField.isEmpty() ? "" : alergiasField.getValue();
-    this.colegio = colegioField.isEmpty() ? "" : colegioField.getValue();
-    this.equipoAnterior = equipoAnteriorField.isEmpty() ? "" : equipoAnteriorField.getValue();
+    String direccion = direccionField.isEmpty() ? "" : direccionField.getValue();
+    int codigoPostal = codigoPostalField.isEmpty() ? 0 : Integer.parseInt(codigoPostalField.getValue());
+    String alergias = alergiasField.isEmpty() ? "" : alergiasField.getValue();
+    String colegio = colegioField.isEmpty() ? "" : colegioField.getValue();
+    String equipoAnterior = equipoAnteriorField.isEmpty() ? "" : equipoAnteriorField.getValue();
+
+    return new Object[] {nombre, apellido1, apellido2, fechaNacimiento, direccion, codigoPostal, alergias, colegio, equipoAnterior};
 }
 
 }

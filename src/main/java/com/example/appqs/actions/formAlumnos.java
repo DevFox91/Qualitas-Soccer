@@ -1,7 +1,6 @@
 package com.example.appqs.actions;
 
 import java.util.Date;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import com.vaadin.ui.Notification;
 import com.example.appqs.dbconnections.formAlumnosToDb;
@@ -149,33 +148,32 @@ public class formAlumnos extends VerticalLayout {
     }
 
     public void pushButtonEnviar() {
-        // Obtener los valores de los campos del formulario
-        obtenerAlumno obtenerAlumnoInstance = new obtenerAlumno();
-        obtenerAlumnoInstance.obtenerAlumnos(nombreField, apellido1Field, apellido2Field,
-                fechaNacimientoField, direccionField, codigoPostalField,
-                alergiasField, colegioField, equipoAnteriorField);
-        // Insertar los datos en la tabla PERSONAL
-        formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
+    // Crear una instancia de obtenerAlumno para poder llamar a su método obtenerAlumnos()
+    obtenerAlumno obtenerAlumnoInstance = new obtenerAlumno();
+
+    // Llamar al método obtenerAlumnos() a través de la instancia creada
+    Object[] datosAlumno = obtenerAlumnoInstance.obtenerAlumnos(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
+                                      direccionField, codigoPostalField, alergiasField, colegioField,
+                                      equipoAnteriorField);
+    String nombre = (String) datosAlumno[0];
+    String apellido1 = (String) datosAlumno[1];
+    String apellido2 = (String) datosAlumno[2];
+    Date fechaNacimiento = (Date) datosAlumno[3];
+    String direccion = (String) datosAlumno[4];
+    int codigoPostal = (int) datosAlumno[5];
+    String alergias = (String) datosAlumno[6];
+    String colegio = (String) datosAlumno[7];
+    String equipoAnterior = (String) datosAlumno[8];
+    
+    // Insertar los datos en la base de datos
+    formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
                 direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
 
-        // Limpiar los campos del formulario después de enviar los datos
-        limpiarFormulario.limpiarFormAlumno(nombreField, apellido1Field, apellido2Field,
-                fechaNacimientoField, direccionField, codigoPostalField,
-                alergiasField, colegioField, equipoAnteriorField);
-    }
+    // Limpiar los campos del formulario después de enviar los datos
+    limpiarFormulario.limpiarFormAlumno(nombreField, apellido1Field, apellido2Field,
+            fechaNacimientoField, direccionField, codigoPostalField,
+            alergiasField, colegioField, equipoAnteriorField);
+}
 
-    public void obtenerAlumno() {
-        this.nombre = nombreField.isEmpty() ? "" : nombreField.getValue();
-        this.apellido1 = apellido1Field.isEmpty() ? "" : apellido1Field.getValue();
-        this.apellido2 = apellido2Field.isEmpty() ? "" : apellido2Field.getValue();
-        this.fechaNacimiento = fechaNacimientoField.isEmpty()
-                ? Date.from(LocalDate.of(1111, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant())
-                : Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.direccion = direccionField.isEmpty() ? "" : direccionField.getValue();
-        this.codigoPostal = codigoPostalField.isEmpty() ? 0 : Integer.parseInt(codigoPostalField.getValue());
-        this.alergias = alergiasField.isEmpty() ? "" : alergiasField.getValue();
-        this.colegio = colegioField.isEmpty() ? "" : colegioField.getValue();
-        this.equipoAnterior = equipoAnteriorField.isEmpty() ? "" : equipoAnteriorField.getValue();
 
-    }
 }
