@@ -25,7 +25,12 @@ public class formAlumnosToDb {
         pstmt.setString(1, nombre);
         pstmt.setString(2, apellido1);
         pstmt.setString(3, apellido2);
-        pstmt.setDate(4, new java.sql.Date(fechaNacimiento.getTime()));
+        // Comprobación para asegurarse de que fechaNacimiento no sea nulo
+        if (fechaNacimiento != null) {
+            pstmt.setDate(4, new java.sql.Date(fechaNacimiento.getTime()));
+        } else {
+            System.out.println("No la lee bien");
+        }
         pstmt.setString(5, direccion);
         pstmt.setInt(6, codigoPostal);
         pstmt.setString(7, alergias);

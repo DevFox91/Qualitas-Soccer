@@ -15,7 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @StyleSheet("/com/example/appqs/CSS/styles.css")
 public class formAlumnos extends VerticalLayout {
-    // Defino las clases necesarias para los métodos 
+    // Defino las variables necesarias para los métodos
     private Button enviarButton;
     private Button guardarButton;
     private TextField nombreField;
@@ -28,8 +28,20 @@ public class formAlumnos extends VerticalLayout {
     private TextField colegioField;
     private TextField equipoAnteriorField;
     private int id;
+    String apellido1;
+    String apellido2;
+    Date fechaNacimiento;
+    String direccion;
+    int codigoPostal;
+    String alergias;
+    String colegioString;
+    String equipoAnterior;
+    String colegio;
+    String nombre;
+    int tipoPersona;
 
-    //Primer constructor, no se le pasan parámetros porque construye formulario vacío para añadir un nuevo alumno.
+    // Primer constructor, no se le pasan parámetros porque construye formulario
+    // vacío para añadir un nuevo alumno.
     public formAlumnos() {
         // Crear los campos del formulario
         this.nombreField = new TextField("Nombre");
@@ -59,13 +71,14 @@ public class formAlumnos extends VerticalLayout {
         enviarButton = ControlUI.createButtonEnviar();
 
         // Llamada al método que lee los datos del formulario de añadir un nuevo Alumno
-        leerFormularioEnviarAlumno();
+        listenerEnviar();
 
         // Agregar el formulario y el botón al diseño vertical
         addComponents(formLayout, enviarButton);
     }
 
-    //Segundo constructor, se trae los datos de la base de datos, según la id del alumno sobre la cual ejecutamos
+    // Segundo constructor, se trae los datos de la base de datos, según la id del
+    // alumno sobre la cual ejecutamos
     public formAlumnos(int id, String nombre, String apellido1, String apellido2,
             Date fechaNacimiento, String direccion, int codigoPostal,
             String alergias, String colegio, String equipoAnterior) {
@@ -113,49 +126,56 @@ public class formAlumnos extends VerticalLayout {
         addComponents(formLayout, guardarButton);
     }
 
-    public void leerFormularioEnviarAlumno() {
+    public void listenerEnviar() {
         // Agregar el listener para el evento del botón de enviar
         enviarButton.addClickListener(event -> {
-            // Obtener los valores de los campos del formulario
-            String nombre = nombreField.isEmpty() ? "" : nombreField.getValue();
-            String apellido1 = apellido1Field.isEmpty() ? "" : apellido1Field.getValue();
-            String apellido2 = apellido2Field.isEmpty() ? "" : apellido2Field.getValue();
-            Date fechaNacimiento = fechaNacimientoField.isEmpty()
-                    ? Date.from(LocalDate.of(1111, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant())
-                    : Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            String direccion = direccionField.isEmpty() ? "" : direccionField.getValue();
-            int codigoPostal = codigoPostalField.isEmpty() ? 0 : Integer.parseInt(codigoPostalField.getValue());
-            String alergias = alergiasField.isEmpty() ? "" : alergiasField.getValue();
-            String colegio = colegioField.isEmpty() ? "" : colegioField.getValue();
-            String equipoAnterior = equipoAnteriorField.isEmpty() ? "" : equipoAnteriorField.getValue();
-            // Insertar los datos en la tabla PERSONAL
-            int tipoPersona = 1; // Asignación inicial
-            formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
-                    direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
-
-            // Limpiar los campos del formulario después de enviar los datos
-            nombreField.clear();
-            apellido1Field.clear();
-            apellido2Field.clear();
-            fechaNacimientoField.clear();
-            direccionField.clear();
-            codigoPostalField.clear();
-            alergiasField.clear();
-            colegioField.clear();
-            equipoAnteriorField.clear();
+            pushButtonEnviar();
         });
     }
-    public void updateAlumno(){
+
+    public void updateAlumno() {
 
         // Agregar el listener para el evento del botón de enviar
         guardarButton.addClickListener(event -> {
             // Actualizar los datos en la base de datos
-            formAlumnosToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(), apellido2Field.getValue(),
+            formAlumnosToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
+                    apellido2Field.getValue(),
                     Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
                     direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), alergiasField.getValue(),
                     colegioField.getValue(), equipoAnteriorField.getValue());
             // Mostrar mensaje de éxito
             Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
         });
+    }
+
+    public void pushButtonEnviar() {
+        // Obtener los valores de los campos del formulario
+        obtenerAlumno obtenerAlumnoInstance = new obtenerAlumno();
+        obtenerAlumnoInstance.obtenerAlumnos(nombreField, apellido1Field, apellido2Field,
+                fechaNacimientoField, direccionField, codigoPostalField,
+                alergiasField, colegioField, equipoAnteriorField);
+        // Insertar los datos en la tabla PERSONAL
+        formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
+                direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
+
+        // Limpiar los campos del formulario después de enviar los datos
+        limpiarFormulario.limpiarFormAlumno(nombreField, apellido1Field, apellido2Field,
+                fechaNacimientoField, direccionField, codigoPostalField,
+                alergiasField, colegioField, equipoAnteriorField);
+    }
+
+    public void obtenerAlumno() {
+        this.nombre = nombreField.isEmpty() ? "" : nombreField.getValue();
+        this.apellido1 = apellido1Field.isEmpty() ? "" : apellido1Field.getValue();
+        this.apellido2 = apellido2Field.isEmpty() ? "" : apellido2Field.getValue();
+        this.fechaNacimiento = fechaNacimientoField.isEmpty()
+                ? Date.from(LocalDate.of(1111, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                : Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.direccion = direccionField.isEmpty() ? "" : direccionField.getValue();
+        this.codigoPostal = codigoPostalField.isEmpty() ? 0 : Integer.parseInt(codigoPostalField.getValue());
+        this.alergias = alergiasField.isEmpty() ? "" : alergiasField.getValue();
+        this.colegio = colegioField.isEmpty() ? "" : colegioField.getValue();
+        this.equipoAnterior = equipoAnteriorField.isEmpty() ? "" : equipoAnteriorField.getValue();
+
     }
 }
