@@ -7,10 +7,10 @@ public class FTutor extends VerticalLayout {
         private formTutores formTutores;
 
     public FTutor() {
-        // Crear una instancia de formAlumnos
+        // Crear una instancia de formTutores
         formTutores = new formTutores();
 
-        // Agregar formAlumnos al diseño vertical
+        // Agregar formTutores al diseño vertical
         addComponent(formTutores);
     }
 

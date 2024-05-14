@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class dbToAlumnos {
+public class dbToTutores {
     private static final Logger logger = Logger.getLogger(dbToAlumnos.class.getName());
 
     public static List<Object[]> getAllPersonalData() {
@@ -21,7 +21,7 @@ public class dbToAlumnos {
         try {
             conn = DriverManager.getConnection("jdbc:postgresql://localhost/QSoccer", "QSUser", "12345");
 
-            String sql = "SELECT * FROM personal WHERE delete = false AND tipoPersona = 1";
+            String sql = "SELECT * FROM personal WHERE delete = false AND tipoPersona = 2";
 
             stmt = conn.prepareStatement(sql);
 
@@ -36,9 +36,9 @@ public class dbToAlumnos {
                 row[4] = rs.getDate("fnacimiento");
                 row[5] = rs.getString("direccion");
                 row[6] = rs.getInt("cpostal");
-                row[7] = rs.getString("alergias");
-                row[8] = rs.getString("colegio");
-                row[9] = rs.getString("anterior");
+                row[7] = rs.getString("nif");
+                row[8] = rs.getString("profesion");
+                row[9] = rs.getString("iban");
                 personalData.add(row);
             }
         } catch (SQLException e) {

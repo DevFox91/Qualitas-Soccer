@@ -1,9 +1,6 @@
 package com.example.appqs;
 
 import com.example.appqs.views.Alumnos;
-import com.example.appqs.views.FPersonal;
-import com.example.appqs.views.FTutor;
-import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.MenuSuperior;
@@ -43,9 +40,6 @@ public class AppQsApplication {
             menuSuperior.setAlumnosButtonListener(menuItem -> showView(new Alumnos()));
             menuSuperior.setTutoresButtonListener(menuItem -> showView(new Tutores()));
             menuSuperior.setPersonalButtonListener(menuItem -> showView(new Personal()));
-            menuSuperior.setInscripcionButtonListener(menuItem -> showView(new Inscripcion()));
-            menuSuperior.setFPersonalButtonListener(menuItem -> showView(new FPersonal()));
-            menuSuperior.setFTutorButtonListener(menuItem -> showView(new FTutor()));
 
             if (contentPanel == null) {
                 contentPanel = new Panel(); // Inicializa contentPanel

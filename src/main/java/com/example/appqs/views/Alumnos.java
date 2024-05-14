@@ -16,7 +16,7 @@ public class Alumnos extends VerticalLayout {
         Button addButton = new Button("Añadir");
         addButton.addClickListener(event -> {
             // Crear un panel para el popup
-            Panel popup = new Panel("Inscripción");
+            Panel popup = new Panel("FORMULARIO PARA AÑADIR UN NUEVO ALUMNO");
 
             // Crear un botón de cierre para el popup
             Button closeButton = new Button("Cerrar");

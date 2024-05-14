@@ -3,7 +3,7 @@ package com.example.appqs.actions;
 import java.util.Date;
 import java.time.ZoneId;
 import com.vaadin.ui.Notification;
-import com.example.appqs.dbconnections.formAlumnosToDb;
+import com.example.appqs.dbconnections.formTutoresToDb;
 import com.example.appqs.webConstructors.ControlUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
@@ -88,7 +88,7 @@ public class formTutores extends VerticalLayout {
     // alumno sobre la cual ejecutamos
     public formTutores(int id, String nombre, String apellido1, String apellido2,
             Date fechaNacimiento, String direccion, int codigoPostal,
-            String alergias, String colegio, String equipoAnterior) {
+            String nif, String profesion, String iban) {
 
         // Crear el campo para el ID
         this.id = id;
@@ -105,6 +105,9 @@ public class formTutores extends VerticalLayout {
         }
         this.direccionField = new TextField("Dirección", direccion);
         this.codigoPostalField = new TextField("Código Postal", String.valueOf(codigoPostal));
+        this.nifField = new TextField("NIF", nif);
+        this.profesionField = new TextField("Profesión", profesion);
+        this.ibanField = new TextField("IBAN", iban);
 
         // Crear el formulario
         FormLayout formLayout = new FormLayout();
@@ -115,24 +118,27 @@ public class formTutores extends VerticalLayout {
                 apellido2Field,
                 fechaNacimientoField,
                 direccionField,
-                codigoPostalField);
-
+                codigoPostalField,
+                nifField,
+                profesionField,
+                ibanField);
+                
         // Llamada al método que crea un botón "guardar"
         guardarButton = ControlUI.createButtonGuardar();
 
         // Llamada al método que lee los datos de una "id" en la base de datos
-        updateAlumno();
+        updateTutor();
 
         // Agregar el formulario y el botón al diseño vertical
         addComponents(formLayout, guardarButton);
     }
 
-    public void updateAlumno() {
+    public void updateTutor() {
 
         // Agregar el listener para el evento del botón de enviar
         guardarButton.addClickListener(event -> {
             // Actualizar los datos en la base de datos
-            formAlumnosToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
+            formTutoresToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
                     apellido2Field.getValue(),
                     Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
                     direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), nifField.getValue(),
