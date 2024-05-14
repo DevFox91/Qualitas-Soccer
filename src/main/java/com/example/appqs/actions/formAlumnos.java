@@ -11,6 +11,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.example.appqs.webConstructors.pushEnviar;
 
 @StyleSheet("/com/example/appqs/CSS/styles.css")
 public class formAlumnos extends VerticalLayout {
@@ -38,10 +39,12 @@ public class formAlumnos extends VerticalLayout {
     String colegio;
     String nombre;
     int tipoPersona;
+    private pushEnviar pushSender;
 
     // Primer constructor, no se le pasan parámetros porque construye formulario
     // vacío para añadir un nuevo alumno.
     public formAlumnos() {
+        this.pushSender = new pushEnviar();
         // Crear los campos del formulario
         this.nombreField = new TextField("Nombre");
         this.apellido1Field = new TextField("Primer Apellido");
@@ -128,7 +131,9 @@ public class formAlumnos extends VerticalLayout {
     public void listenerEnviar() {
         // Agregar el listener para el evento del botón de enviar
         enviarButton.addClickListener(event -> {
-            pushButtonEnviar();
+            pushSender.pushButtonEnviar(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
+                                          direccionField, codigoPostalField, alergiasField, colegioField,
+                                          equipoAnteriorField);
         });
     }
 
@@ -147,33 +152,7 @@ public class formAlumnos extends VerticalLayout {
         });
     }
 
-    public void pushButtonEnviar() {
-    // Crear una instancia de obtenerAlumno para poder llamar a su método obtenerAlumnos()
-    obtenerAlumno obtenerAlumnoInstance = new obtenerAlumno();
-
-    // Llamar al método obtenerAlumnos() a través de la instancia creada
-    Object[] datosAlumno = obtenerAlumnoInstance.obtenerAlumnos(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
-                                      direccionField, codigoPostalField, alergiasField, colegioField,
-                                      equipoAnteriorField);
-    String nombre = (String) datosAlumno[0];
-    String apellido1 = (String) datosAlumno[1];
-    String apellido2 = (String) datosAlumno[2];
-    Date fechaNacimiento = (Date) datosAlumno[3];
-    String direccion = (String) datosAlumno[4];
-    int codigoPostal = (int) datosAlumno[5];
-    String alergias = (String) datosAlumno[6];
-    String colegio = (String) datosAlumno[7];
-    String equipoAnterior = (String) datosAlumno[8];
     
-    // Insertar los datos en la base de datos
-    formAlumnosToDb.insertPersonalData(nombre, apellido1, apellido2, fechaNacimiento,
-                direccion, codigoPostal, alergias, colegio, tipoPersona, equipoAnterior);
-
-    // Limpiar los campos del formulario después de enviar los datos
-    limpiarFormulario.limpiarFormAlumno(nombreField, apellido1Field, apellido2Field,
-            fechaNacimientoField, direccionField, codigoPostalField,
-            alergiasField, colegioField, equipoAnteriorField);
-}
 
 
 }
