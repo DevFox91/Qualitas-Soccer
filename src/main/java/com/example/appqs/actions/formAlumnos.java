@@ -6,7 +6,6 @@ import com.vaadin.ui.Notification;
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
-import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.ControlUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
@@ -79,6 +78,7 @@ public class formAlumnos extends VerticalLayout {
             pushSender.pushButtonEnviar(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
                     direccionField, codigoPostalField, alergiasField, colegioField,
                     equipoAnteriorField);
+            
         });
 
         // Agregar el formulario y el botón al diseño vertical
@@ -148,10 +148,10 @@ public class formAlumnos extends VerticalLayout {
             Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
 
             // Obtener el UI actual y cambiar la vista del content panel a "Alumnos"
-        UI currentUI = UI.getCurrent();
-        if (currentUI instanceof AppQsApplication.MainUI) {
-            ((AppQsApplication.MainUI) currentUI).showView(new Alumnos());
-        }
+            UI currentUI = UI.getCurrent();
+            if (currentUI instanceof AppQsApplication.MainUI) {
+                ((AppQsApplication.MainUI) currentUI).showView(new Alumnos());
+            }
         });
     }
 
