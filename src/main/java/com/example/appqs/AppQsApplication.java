@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AppQsApplication {
-
     private static Panel contentPanel; // Define contentPanel como un campo de la clase
 
     public static void main(String[] args) {

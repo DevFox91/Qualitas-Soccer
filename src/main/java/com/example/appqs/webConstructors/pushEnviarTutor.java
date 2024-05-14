@@ -5,7 +5,6 @@ import com.example.appqs.AppQsApplication;
 import com.example.appqs.actions.limpiarFormulario;
 import java.util.Date;
 import com.example.appqs.dbconnections.formTutoresToDb;
-import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.Tutores;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.TextField;

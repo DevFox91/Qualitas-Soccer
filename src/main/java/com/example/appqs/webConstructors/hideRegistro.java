@@ -34,5 +34,7 @@ public class hideRegistro {
                 System.err.println("Error al actualizar el registro en la base de datos: " + e.getMessage());
             }
         });
+
+        
     }
 }

@@ -77,12 +77,19 @@ public class gridAlumnos extends VerticalLayout {
 
             layout.addComponent(editButton);
 
-            // Botón para eliminar (borrar)
+            // Botón para eliminar (ocultar)
             Button deleteButton = new Button("⌫");
             deleteButton.addClickListener(event -> {
                 // Lógica para eliminar el registro
             });
             layout.addComponent(deleteButton);
+
+            // Botón para ver relaciones familiares
+            Button familyButton = new Button("👨‍👩‍👧‍👦");
+            familyButton.addClickListener(event -> {
+                // Lógica para eliminar el registro
+            });
+            layout.addComponent(familyButton);
 
             return layout;
         }).setCaption("Acciones");

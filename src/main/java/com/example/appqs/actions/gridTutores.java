@@ -5,6 +5,7 @@ import com.example.appqs.dbconnections.dbToTutores;
 import com.example.appqs.views.editTutor;
 import com.example.appqs.webConstructors.hideRegistro;
 
+
 import java.util.List;
 import com.vaadin.ui.*;
 import java.util.Optional;
@@ -84,6 +85,13 @@ public class gridTutores extends VerticalLayout {
             deleteButton.setData(row); // Guardar los datos de la fila asociada al botón
             hideRegistro.attachHideListener(deleteButton, grid);
             layout.addComponent(deleteButton);
+
+            // Botón para ver relaciones familiares
+            Button familyButton = new Button("👨‍👩‍👧‍👦");
+            familyButton.addClickListener(event -> {
+                // Lógica para eliminar el registro
+            });
+            layout.addComponent(familyButton);
 
             return layout;
         }).setCaption("Acciones");
