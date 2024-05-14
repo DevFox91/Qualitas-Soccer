@@ -5,7 +5,6 @@ import java.time.ZoneId;
 import com.vaadin.ui.Notification;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.webConstructors.ControlUI;
-import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -13,7 +12,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.example.appqs.webConstructors.pushEnviar;
 
-@StyleSheet("/com/example/appqs/CSS/styles.css")
 public class formAlumnos extends VerticalLayout {
     // Defino las variables necesarias para los métodos
     private Button enviarButton;
@@ -72,8 +70,12 @@ public class formAlumnos extends VerticalLayout {
         // Llamada al método que crea un botón "enviar"
         enviarButton = ControlUI.createButtonEnviar();
 
-        // Llamada al método que lee los datos del formulario de añadir un nuevo Alumno
-        listenerEnviar();
+        // Agregar el listener para el evento del botón de enviar
+        enviarButton.addClickListener(event -> {
+            pushSender.pushButtonEnviar(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
+                                          direccionField, codigoPostalField, alergiasField, colegioField,
+                                          equipoAnteriorField);
+        });
 
         // Agregar el formulario y el botón al diseño vertical
         addComponents(formLayout, enviarButton);
@@ -127,16 +129,6 @@ public class formAlumnos extends VerticalLayout {
         // Agregar el formulario y el botón al diseño vertical
         addComponents(formLayout, guardarButton);
     }
-
-    public void listenerEnviar() {
-        // Agregar el listener para el evento del botón de enviar
-        enviarButton.addClickListener(event -> {
-            pushSender.pushButtonEnviar(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
-                                          direccionField, codigoPostalField, alergiasField, colegioField,
-                                          equipoAnteriorField);
-        });
-    }
-
     public void updateAlumno() {
 
         // Agregar el listener para el evento del botón de enviar
