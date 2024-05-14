@@ -3,12 +3,16 @@ package com.example.appqs.actions;
 import java.util.Date;
 import java.time.ZoneId;
 import com.vaadin.ui.Notification;
+import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formAlumnosToDb;
+import com.example.appqs.views.Alumnos;
+import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.ControlUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.example.appqs.webConstructors.pushEnviar;
 
@@ -142,6 +146,12 @@ public class formAlumnos extends VerticalLayout {
                     colegioField.getValue(), equipoAnteriorField.getValue());
             // Mostrar mensaje de éxito
             Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
+
+            // Obtener el UI actual y cambiar la vista del content panel a "Alumnos"
+        UI currentUI = UI.getCurrent();
+        if (currentUI instanceof AppQsApplication.MainUI) {
+            ((AppQsApplication.MainUI) currentUI).showView(new Alumnos());
+        }
         });
     }
 

@@ -4,7 +4,6 @@ import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.dbToTutores;
 import com.example.appqs.views.editTutor;
 import com.example.appqs.webConstructors.hideRegistro;
-import com.example.appqs.webConstructors.pushEliminar;
 
 import java.util.List;
 import com.vaadin.ui.*;

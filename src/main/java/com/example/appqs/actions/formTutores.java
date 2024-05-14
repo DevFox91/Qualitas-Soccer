@@ -3,12 +3,15 @@ package com.example.appqs.actions;
 import java.util.Date;
 import java.time.ZoneId;
 import com.vaadin.ui.Notification;
+import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formTutoresToDb;
+import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.ControlUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.example.appqs.webConstructors.pushEnviarTutor;
 
@@ -134,18 +137,24 @@ public class formTutores extends VerticalLayout {
     }
 
     public void updateTutor() {
-
-        // Agregar el listener para el evento del botón de enviar
-        guardarButton.addClickListener(event -> {
-            // Actualizar los datos en la base de datos
-            formTutoresToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
-                    apellido2Field.getValue(),
-                    Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), nifField.getValue(),
-                    profesionField.getValue(), ibanField.getValue());
-            // Mostrar mensaje de éxito
-            Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
-        });
-    }
+    // Agregar el listener para el evento del botón de enviar
+    guardarButton.addClickListener(event -> {
+        // Actualizar los datos en la base de datos
+        formTutoresToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
+                apellido2Field.getValue(),
+                Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), nifField.getValue(),
+                profesionField.getValue(), ibanField.getValue());
+        
+        // Mostrar mensaje de éxito
+        Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
+        
+        // Obtener el UI actual y cambiar la vista del content panel a "Tutores"
+        UI currentUI = UI.getCurrent();
+        if (currentUI instanceof AppQsApplication.MainUI) {
+            ((AppQsApplication.MainUI) currentUI).showView(new Tutores());
+        }
+    });
+}
 
 }
