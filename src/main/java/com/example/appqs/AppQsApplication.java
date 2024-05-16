@@ -54,6 +54,7 @@ public class AppQsApplication {
 
             // Por defecto, muestra la vista de Alumnos al iniciar la aplicación
             showView(new Alumnos());
+            
         }
 
         public void showView(VerticalLayout view) {
