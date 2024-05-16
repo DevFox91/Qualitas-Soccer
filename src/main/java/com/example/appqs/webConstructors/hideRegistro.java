@@ -1,7 +1,10 @@
 package com.example.appqs.webConstructors;
 
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,6 +29,19 @@ public class hideRegistro {
                     if (affectedRows > 0) {
                         // Actualización exitosa
                         grid.getDataProvider().refreshItem(rowData);
+
+                        // Recuperar la vista previa almacenada
+                        String currentViewName = (String) VaadinSession.getCurrent().getAttribute("currentView");
+                        if (currentViewName != null) {
+                            try {
+                                Class<?> viewClass = Class.forName("com.example.appqs.views." + currentViewName);
+                                VerticalLayout view = (VerticalLayout) viewClass.getDeclaredConstructor().newInstance();
+                                Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute("contentPanel");
+                                contentPanel.setContent(view);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     } else {
                         System.out.println("No se encontró ningún registro con el ID proporcionado.");
                     }

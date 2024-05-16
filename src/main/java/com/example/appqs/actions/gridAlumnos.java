@@ -3,6 +3,7 @@ package com.example.appqs.actions;
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.dbToAlumnos;
 import com.example.appqs.views.editAlumno;
+import com.example.appqs.webConstructors.hideRegistro;
 
 import java.util.List;
 import com.vaadin.ui.*;
@@ -77,11 +78,10 @@ public class gridAlumnos extends VerticalLayout {
 
             layout.addComponent(editButton);
 
-            // Botón para eliminar (ocultar)
+            // Botón para eliminar (borrar)
             Button deleteButton = new Button("⌫");
-            deleteButton.addClickListener(event -> {
-                // Lógica para eliminar el registro
-            });
+            deleteButton.setData(row); // Guardar los datos de la fila asociada al botón
+            hideRegistro.attachHideListener(deleteButton, grid);
             layout.addComponent(deleteButton);
 
             // Botón para ver relaciones familiares

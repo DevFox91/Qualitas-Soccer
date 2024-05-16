@@ -16,7 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AppQsApplication {
-    private static final String CONTENT_PANEL_ATTRIBUTE = "contentPanel"; // Define el nombre del atributo de la sesión para el contentPanel
+
+    private static final String CONTENT_PANEL_ATTRIBUTE = "contentPanel"; 
+    private static final String CURRENT_VIEW_ATTRIBUTE = "currentView";
 
     public static void main(String[] args) {
         SpringApplication.run(AppQsApplication.class, args);
@@ -32,37 +34,42 @@ public class AppQsApplication {
             mainLayout.setSizeFull();
             setContent(mainLayout);
 
-            // Crear y agregar el menú superior
             MenuSuperior menuSuperior = new MenuSuperior();
             mainLayout.addComponent(menuSuperior);
 
-            // Configurar listeners de los botones del menú
             menuSuperior.setAlumnosButtonListener(menuItem -> showView(new Alumnos()));
             menuSuperior.setTutoresButtonListener(menuItem -> showView(new Tutores()));
             menuSuperior.setPersonalButtonListener(menuItem -> showView(new Personal()));
 
-            // Obtener o inicializar el contentPanel desde la sesión del usuario
             Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
             if (contentPanel == null) {
                 contentPanel = new Panel();
                 VaadinSession.getCurrent().setAttribute(CONTENT_PANEL_ATTRIBUTE, contentPanel);
             }
 
-            // Agregar contentPanel al layout principal
             mainLayout.addComponent(contentPanel);
             mainLayout.setExpandRatio(contentPanel, 1.0f);
 
-            // Por defecto, muestra la vista de Alumnos al iniciar la aplicación
-            showView(new Alumnos());
-            
+            // Cargar la vista previa si está disponible, de lo contrario, cargar Alumnos
+            String currentViewName = (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);
+            if (currentViewName != null) {
+                try {
+                    Class<?> viewClass = Class.forName("com.example.appqs.views." + currentViewName);
+                    showView((VerticalLayout) viewClass.getDeclaredConstructor().newInstance());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showView(new Alumnos());
+            }
         }
 
         public void showView(VerticalLayout view) {
             if (view != null) {
                 Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
                 if (contentPanel != null) {
-                    // Reemplazar el contenido con la nueva vista
                     contentPanel.setContent(view);
+                    VaadinSession.getCurrent().setAttribute(CURRENT_VIEW_ATTRIBUTE, view.getClass().getSimpleName());
                 } else {
                     System.out.println("El contentPanel es null");
                 }
