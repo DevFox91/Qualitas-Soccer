@@ -6,6 +6,7 @@ import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.MenuSuperior;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
@@ -15,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AppQsApplication {
-    private static Panel contentPanel; // Define contentPanel como un campo de la clase
+    private static final String CONTENT_PANEL_ATTRIBUTE = "contentPanel"; // Define el nombre del atributo de la sesión para el contentPanel
 
     public static void main(String[] args) {
         SpringApplication.run(AppQsApplication.class, args);
@@ -40,11 +41,16 @@ public class AppQsApplication {
             menuSuperior.setTutoresButtonListener(menuItem -> showView(new Tutores()));
             menuSuperior.setPersonalButtonListener(menuItem -> showView(new Personal()));
 
+            // Obtener o inicializar el contentPanel desde la sesión del usuario
+            Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
             if (contentPanel == null) {
-                contentPanel = new Panel(); // Inicializa contentPanel
-                mainLayout.addComponent(contentPanel);
-                mainLayout.setExpandRatio(contentPanel, 1.0f);
+                contentPanel = new Panel();
+                VaadinSession.getCurrent().setAttribute(CONTENT_PANEL_ATTRIBUTE, contentPanel);
             }
+
+            // Agregar contentPanel al layout principal
+            mainLayout.addComponent(contentPanel);
+            mainLayout.setExpandRatio(contentPanel, 1.0f);
 
             // Por defecto, muestra la vista de Alumnos al iniciar la aplicación
             showView(new Alumnos());
@@ -52,12 +58,12 @@ public class AppQsApplication {
 
         public void showView(VerticalLayout view) {
             if (view != null) {
+                Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
                 if (contentPanel != null) {
-                    // Reemplaza el contenido con la nueva vista
+                    // Reemplazar el contenido con la nueva vista
                     contentPanel.setContent(view);
-
                 } else {
-                    System.out.println("La vista es null");
+                    System.out.println("El contentPanel es null");
                 }
             }
         }
