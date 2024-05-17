@@ -4,14 +4,14 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 
-public class menuActions extends HorizontalLayout {
+public class menuForAlumnos extends HorizontalLayout {
 
     private Button alumnosButton;
     private Button tutoresButton;
     private Button personalButton;
     public Button toggleMenuButton;
 
-    public menuActions() {
+    public menuForAlumnos() {
         // Establecer la alineación de este HorizontalLayout a la derecha
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 

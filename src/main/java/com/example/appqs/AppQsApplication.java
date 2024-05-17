@@ -10,7 +10,6 @@ import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
@@ -33,18 +32,23 @@ public class AppQsApplication {
     @SpringUI
     public static class MainUI extends UI {
 
+        private HorizontalLayout mainLayout;
+        private VerticalLayout menuLayout;
+        private boolean isMenuVisible = true;
+        private menuActions menuActions; // Declarar menuActions como una variable de instancia
+
         @Override
         protected void init(VaadinRequest request) {
             // Ajustes de estilo para los botones del menú
             Page.getCurrent().getStyles().add(".menu-button { margin-left: -10px; width: 200px;}");
 
             // Layout principal horizontal
-            HorizontalLayout mainLayout = new HorizontalLayout();
+            mainLayout = new HorizontalLayout();
             mainLayout.setSizeFull();
             setContent(mainLayout);
 
             // Layout vertical para el menú
-            VerticalLayout menuLayout = new VerticalLayout();
+            menuLayout = new VerticalLayout();
             menuLayout.setWidth("300px"); // Ajusta el ancho del menú según tus necesidades
             mainLayout.addComponent(menuLayout);
 
@@ -60,7 +64,8 @@ public class AppQsApplication {
             contentLayout.addComponent(menuActionsLayout);
 
             // Crear el menú de acciones
-            menuActions menuActions = new menuActions();
+            menuActions = new menuActions();
+            menuActions.setToggleMenuButtonListener(event -> toggleMenuVisibility());
             menuActionsLayout.addComponent(menuActions);
 
             // Crear el menú lateral
@@ -113,6 +118,18 @@ public class AppQsApplication {
                     System.out.println("El contentPanel es null");
                 }
             }
+        }
+
+        // Método para alternar la visibilidad del menú
+        private void toggleMenuVisibility() {
+            if (isMenuVisible) {
+                mainLayout.removeComponent(menuLayout);
+                menuActions.toggleMenuButton.setCaption(">>");
+            } else {
+                mainLayout.addComponent(menuLayout, 0);
+                menuActions.toggleMenuButton.setCaption("<<");
+            }
+            isMenuVisible = !isMenuVisible;
         }
     }
 }
