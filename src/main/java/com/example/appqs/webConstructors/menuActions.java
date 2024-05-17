@@ -3,45 +3,46 @@ package com.example.appqs.webConstructors;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
 
 public class menuActions extends HorizontalLayout {
 
-    private Button alumnosButton;
-    private Button tutoresButton;
-    private Button personalButton;
-    public Button toggleMenuButton;
+    public Button toggleMenuButton; // Modificado a public
 
     public menuActions() {
         // Establecer la alineación de este HorizontalLayout a la derecha
-        this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
+        setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
-        // Crear botones y añadirlos horizontalmente
+        // Crear botón para ocultar el menú
         toggleMenuButton = new Button("<<");
-        alumnosButton = new Button("Botones");
-        tutoresButton = new Button("Acciones");
-        personalButton = new Button("Variables");
 
-        // Añadir botones al layout horizontal
+        // Añadir el botón al layout horizontal
         addComponent(toggleMenuButton);
-        addComponent(alumnosButton);
-        addComponent(tutoresButton);
-        addComponent(personalButton);
-
     }
 
     public void setToggleMenuButtonListener(Button.ClickListener listener) {
         toggleMenuButton.addClickListener(listener);
     }
 
-    public void setAlumnosButtonListener(Button.ClickListener listener) {
-        alumnosButton.addClickListener(listener);
+    // Método para cambiar el menú según la vista actual
+    public void updateMenu(String currentViewName) {
+        removeAllComponents(); // Elimina todos los componentes actuales
+
+        if (currentViewName.equals("Alumnos")) {
+            AlumnosMenu alumnosMenu = new AlumnosMenu();
+            alumnosMenu.setToggleMenuButtonListener(e -> toggleMenu());
+            addComponents(toggleMenuButton, alumnosMenu);
+        } else if (currentViewName.equals("Tutores")) {
+            TutoresMenu tutoresMenu = new TutoresMenu();
+            tutoresMenu.setToggleMenuButtonListener(e -> toggleMenu());
+            addComponents(toggleMenuButton, tutoresMenu);
+        } else {
+            // Si la vista actual no coincide con "Alumnos" ni "Tutores", solo agrega el botón de toggle
+            addComponent(toggleMenuButton);
+        }
     }
 
-    public void setTutoresButtonListener(Button.ClickListener listener) {
-        tutoresButton.addClickListener(listener);
-    }
-
-    public void setPersonalButtonListener(Button.ClickListener listener) {
-        personalButton.addClickListener(listener);
+    private void toggleMenu() {
+        UI.getCurrent().access(() -> UI.getCurrent().getNavigator().navigateTo(""));
     }
 }
