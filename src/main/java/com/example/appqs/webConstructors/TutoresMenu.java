@@ -1,5 +1,6 @@
 package com.example.appqs.webConstructors;
 
+import com.example.appqs.AppQsApplication.MainUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -7,37 +8,25 @@ import com.vaadin.ui.HorizontalLayout;
 public class TutoresMenu extends HorizontalLayout {
 
     private Button alumnosButton;
-    private Button tutoresButton;
-    private Button personalButton;
     public Button toggleMenuButton;
 
-    public TutoresMenu() {
+    public TutoresMenu(MainUI mainUI) {
         // Establecer la alineación de este HorizontalLayout a la derecha
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
         // Crear botones y añadirlos horizontalmente
         toggleMenuButton = new Button("<<");
-        alumnosButton = new Button("Añadir Alumno");
+        alumnosButton = new Button("Añadir Tutor");
 
         // Añadir botones al layout horizontal
         addComponent(toggleMenuButton);
         addComponent(alumnosButton);
 
-    }
-
-    public void setToggleMenuButtonListener(Button.ClickListener listener) {
-        toggleMenuButton.addClickListener(listener);
+        // Configurar el listener para el botón toggleMenuButton
+        toggleMenuButton.addClickListener(event -> mainUI.toggleMenuVisibility());
     }
 
     public void setAlumnosButtonListener(Button.ClickListener listener) {
         alumnosButton.addClickListener(listener);
-    }
-
-    public void setTutoresButtonListener(Button.ClickListener listener) {
-        tutoresButton.addClickListener(listener);
-    }
-
-    public void setPersonalButtonListener(Button.ClickListener listener) {
-        personalButton.addClickListener(listener);
     }
 }

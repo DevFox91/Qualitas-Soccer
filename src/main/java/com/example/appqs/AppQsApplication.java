@@ -3,8 +3,9 @@ package com.example.appqs;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
+import com.example.appqs.webConstructors.AlumnosMenu;
+import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.leftMenu;
-import com.example.appqs.webConstructors.menuActions;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -34,8 +35,8 @@ public class AppQsApplication {
 
         private HorizontalLayout mainLayout;
         private VerticalLayout menuLayout;
+        private VerticalLayout menuActionsLayout;
         private boolean isMenuVisible = true;
-        private menuActions menuActions; // Declarar menuActions como una variable de instancia
 
         @Override
         protected void init(VaadinRequest request) {
@@ -59,23 +60,9 @@ public class AppQsApplication {
             mainLayout.setExpandRatio(contentLayout, 1.0f); // Hace que la capa ocupe todo el espacio restante
 
             // Capa para las acciones de menú
-            VerticalLayout menuActionsLayout = new VerticalLayout();
+            menuActionsLayout = new VerticalLayout();
             menuActionsLayout.setWidth("100%"); // Ajusta el ancho según tus necesidades
             contentLayout.addComponent(menuActionsLayout);
-
-            // Crear el menú de acciones
-            menuActions = new menuActions();
-            menuActions.setToggleMenuButtonListener(event -> toggleMenuVisibility());
-            menuActionsLayout.addComponent(menuActions);
-
-            // Crear el menú lateral
-            leftMenu leftMenu = new leftMenu();
-            menuLayout.addComponent(leftMenu);
-
-            // Configurar listeners para los botones del menú
-            leftMenu.setAlumnosButtonListener(menuItem -> showView(new Alumnos()));
-            leftMenu.setTutoresButtonListener(menuItem -> showView(new Tutores()));
-            leftMenu.setPersonalButtonListener(menuItem -> showView(new Personal()));
 
             // Crear o recuperar el panel de contenido
             Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
@@ -86,8 +73,16 @@ public class AppQsApplication {
 
             // Agregar el panel de contenido a la capa contentLayout
             contentLayout.addComponent(contentPanel);
-            contentLayout.setExpandRatio(contentPanel, 1.0f); // Hace que el panel de contenido ocupe todo el espacio
-                                                              // restante
+            contentLayout.setExpandRatio(contentPanel, 1.0f); // Hace que el panel de contenido ocupe todo el espacio restante
+
+            // Crear el menú lateral
+            leftMenu leftMenu = new leftMenu();
+            menuLayout.addComponent(leftMenu);
+
+            // Configurar listeners para los botones del menú
+            leftMenu.setAlumnosButtonListener(menuItem -> showView(new Alumnos()));
+            leftMenu.setTutoresButtonListener(menuItem -> showView(new Tutores()));
+            leftMenu.setPersonalButtonListener(menuItem -> showView(new Personal()));
 
             // Cargar la vista previa si está disponible, de lo contrario, cargar Alumnos
             String currentViewName = (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);
@@ -113,6 +108,9 @@ public class AppQsApplication {
                     // Establecer el contenido del panel como la nueva vista
                     contentPanel.setContent(view);
                     VaadinSession.getCurrent().setAttribute(CURRENT_VIEW_ATTRIBUTE, view.getClass().getSimpleName());
+
+                    // Actualizar el menú de acciones según la vista actual
+                    updateMenu();
                 } else {
                     // Manejar el caso en que el panel de contenido es nulo
                     System.out.println("El contentPanel es null");
@@ -120,14 +118,33 @@ public class AppQsApplication {
             }
         }
 
+        // Método para actualizar el menú de acciones según la vista actual
+        private void updateMenu() {
+            // Limpiar el menú de acciones actual
+            menuActionsLayout.removeAllComponents();
+
+            // Crear el menú de acciones correspondiente a la vista actual
+            String currentViewName = getCurrentViewName();
+            if ("Alumnos".equals(currentViewName)) {
+                AlumnosMenu alumnosMenu = new AlumnosMenu(this);
+                menuActionsLayout.addComponent(alumnosMenu);
+            } else if ("Tutores".equals(currentViewName)) {
+                TutoresMenu tutoresMenu = new TutoresMenu(this);
+                menuActionsLayout.addComponent(tutoresMenu);
+            }
+        }
+
+        // Método para obtener el nombre de la vista actual
+        private String getCurrentViewName() {
+            return (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);
+        }
+
         // Método para alternar la visibilidad del menú
-        private void toggleMenuVisibility() {
+        public void toggleMenuVisibility() {
             if (isMenuVisible) {
                 mainLayout.removeComponent(menuLayout);
-                menuActions.toggleMenuButton.setCaption(">>");
             } else {
                 mainLayout.addComponent(menuLayout, 0);
-                menuActions.toggleMenuButton.setCaption("<<");
             }
             isMenuVisible = !isMenuVisible;
         }
