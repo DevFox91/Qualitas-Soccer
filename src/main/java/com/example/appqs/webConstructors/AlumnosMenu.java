@@ -1,6 +1,7 @@
 package com.example.appqs.webConstructors;
 
 import com.example.appqs.AppQsApplication.MainUI;
+import com.example.appqs.views.Inscripcion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -24,6 +25,9 @@ public class AlumnosMenu extends HorizontalLayout {
 
         // Configurar el listener para el botón toggleMenuButton
         toggleMenuButton.addClickListener(event -> mainUI.toggleMenuVisibility());
+
+        // Configurar el listener para el botón "Añadir Alumno"
+        alumnosButton.addClickListener(event -> mainUI.showView(new Inscripcion()));
     }
 
     public void setAlumnosButtonListener(Button.ClickListener listener) {
