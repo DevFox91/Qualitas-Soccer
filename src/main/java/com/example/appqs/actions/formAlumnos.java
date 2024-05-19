@@ -15,6 +15,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.example.appqs.webConstructors.pushEnviar;
 
+
 public class formAlumnos extends VerticalLayout {
     // Defino las variables necesarias para los métodos
     private Button enviarButton;
@@ -41,6 +42,7 @@ public class formAlumnos extends VerticalLayout {
     String nombre;
     int tipoPersona;
     private pushEnviar pushSender;
+    private logicEnviar logicSender;
 
     // Primer constructor, no se le pasan parámetros porque construye formulario
     // vacío para añadir un nuevo alumno.
