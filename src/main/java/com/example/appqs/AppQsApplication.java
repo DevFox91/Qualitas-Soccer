@@ -7,6 +7,7 @@ import com.example.appqs.webConstructors.AlumnosMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
+import com.example.appqs.webConstructors.pushEnviar;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -18,6 +19,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 @Theme("themeQSoccer")
@@ -111,7 +113,8 @@ public class AppQsApplication {
                 TutoresMenu tutoresMenu = new TutoresMenu(this);
                 menuActionsLayout.addComponent(tutoresMenu);
             } else if ("Inscripcion".equals(currentViewName)) {
-                inscripcionMenu inscripcionMenu = new inscripcionMenu(this);
+                pushEnviar pushSender = new pushEnviar();
+                inscripcionMenu inscripcionMenu = new inscripcionMenu(this, pushSender);
                 menuActionsLayout.addComponent(inscripcionMenu);
             }
         }
