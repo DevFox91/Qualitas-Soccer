@@ -7,7 +7,6 @@ import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.webConstructors.ControlUI;
-import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.pushEnviar;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
