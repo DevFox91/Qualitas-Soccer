@@ -10,7 +10,6 @@ import com.vaadin.ui.HorizontalLayout;
 public class inscripcionMenu extends HorizontalLayout {
 
     private Button toggleMenuButton;
-
     private Button enviarDatosButton; // Botón para enviar los datos del formulario a la base de datos
 
     public inscripcionMenu(MainUI mainUI, Inscripcion inscripcion, pushEnviar pushSender) {
@@ -20,7 +19,6 @@ public class inscripcionMenu extends HorizontalLayout {
         formAlumnos form = inscripcion.getForm();
 
         toggleMenuButton = new Button("<<");
-
         enviarDatosButton = new Button("Enviar Datos");
 
         // Configurar el listener para el botón toggleMenuButton

@@ -9,7 +9,7 @@ import java.util.List;
 import com.vaadin.ui.*;
 import java.util.Optional;
 import java.sql.Connection;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +33,10 @@ public class gridAlumnos extends VerticalLayout {
             editButton.addClickListener(event -> {
                 // Obtener el objeto de la fila seleccionada
                 Object[] rowData = row;
-            
+
                 // Obtener el valor de la columna "ID"
                 int idValue = (int) rowData[0]; // Suponiendo que el ID está en la primera columna
-            
+
                 // Realizar la conexión a la base de datos
                 try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost/QSoccer",
                         "QSUser", "12345")) {
@@ -50,16 +50,17 @@ public class gridAlumnos extends VerticalLayout {
                                 String nombre = resultSet.getString("nombre");
                                 String apellido1 = resultSet.getString("apellido1");
                                 String apellido2 = resultSet.getString("apellido2");
-                                Date fnacimiento = resultSet.getTimestamp("fnacimiento");
+                                Date fnacimientoSql = resultSet.getDate("fnacimiento");
+                                java.util.Date fnacimiento = fnacimientoSql != null ? new java.util.Date(fnacimientoSql.getTime()) : null;
                                 String direccion = resultSet.getString("direccion");
                                 int cpostal = resultSet.getInt("cpostal");
                                 String alergias = resultSet.getString("alergias");
                                 String colegio = resultSet.getString("colegio");
                                 String anterior = resultSet.getString("anterior");
-            
+
                                 // Crear la vista editAlumno y enviar los datos
-                                editAlumno editAlumnoView = new editAlumno(idValue, nombre, apellido1, apellido2, fnacimiento, 
-                                                                            direccion, cpostal, alergias, colegio, anterior);
+                                editAlumno editAlumnoView = new editAlumno(idValue, nombre, apellido1, apellido2, fnacimiento,
+                                        direccion, cpostal, alergias, colegio, anterior);
                                 Optional<UI> currentUI = Optional.ofNullable(UI.getCurrent());
                                 currentUI.ifPresent(ui -> {
                                     if (ui instanceof AppQsApplication.MainUI) {
@@ -87,7 +88,7 @@ public class gridAlumnos extends VerticalLayout {
             // Botón para ver relaciones familiares
             Button familyButton = new Button("👨‍👩‍👧‍👦");
             familyButton.addClickListener(event -> {
-                // Lógica para eliminar el registro
+                // Lógica para ver relaciones familiares
             });
             layout.addComponent(familyButton);
 
@@ -119,5 +120,4 @@ public class gridAlumnos extends VerticalLayout {
         // Ajustar el tamaño del Grid al espacio disponible
         setExpandRatio(grid, 1);
     }
-
 }

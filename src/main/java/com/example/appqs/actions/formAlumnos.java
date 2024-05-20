@@ -7,8 +7,6 @@ import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.webConstructors.ControlUI;
-
-
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -28,7 +26,6 @@ public class formAlumnos extends VerticalLayout {
     private TextField colegioField;
     private TextField equipoAnteriorField;
     private int id;
-
 
     public TextField getNombreField() {
         return nombreField;
@@ -112,7 +109,6 @@ public class formAlumnos extends VerticalLayout {
 
         this.guardarButton = ControlUI.createButtonGuardar();
         setupGuardarButton();
-
         addComponent(this.guardarButton);
     }
 
@@ -142,7 +138,7 @@ public class formAlumnos extends VerticalLayout {
         addComponent(formLayout);
     }
 
-    private void setupGuardarButton() {
+    public void setupGuardarButton() {
         this.guardarButton.addClickListener(event -> {
             formAlumnosToDb.updatePersonalData(
                     this.id, this.nombreField.getValue(), this.apellido1Field.getValue(), this.apellido2Field.getValue(),
@@ -157,6 +153,8 @@ public class formAlumnos extends VerticalLayout {
             }
         });
     }
+
+    
 
     public String getFormValues() {
         StringBuilder sb = new StringBuilder();

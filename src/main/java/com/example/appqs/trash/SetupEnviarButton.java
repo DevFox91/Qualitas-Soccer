@@ -1,5 +1,7 @@
-package com.example.appqs.webConstructors;
+package com.example.appqs.trash;
 
+import com.example.appqs.webConstructors.ControlUI;
+import com.example.appqs.webConstructors.pushEnviar;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.DateField;

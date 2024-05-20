@@ -6,6 +6,7 @@ import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.webConstructors.AlumnosMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
+import com.example.appqs.webConstructors.editAlumnoMenu;
 import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
 import com.example.appqs.webConstructors.pushEnviar;
@@ -20,7 +21,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 
 @SpringBootApplication
 @Theme("themeQSoccer")
@@ -95,8 +95,6 @@ public class AppQsApplication {
             }
         }
 
-        
-
         public void showView(VerticalLayout view) {
             if (view != null) {
                 Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
@@ -111,20 +109,25 @@ public class AppQsApplication {
         }
 
         private void updateMenu(VerticalLayout view) {
-        menuActionsLayout.removeAllComponents();
-        String currentViewName = getCurrentViewName();
-        if ("Alumnos".equals(currentViewName)) {
-            AlumnosMenu alumnosMenu = new AlumnosMenu(this);
-            menuActionsLayout.addComponent(alumnosMenu);
-        } else if ("Tutores".equals(currentViewName)) {
-            TutoresMenu tutoresMenu = new TutoresMenu(this);
-            menuActionsLayout.addComponent(tutoresMenu);
-        } else if ("Inscripcion".equals(currentViewName)) {
-            pushEnviar pushSender = new pushEnviar();
-            inscripcionMenu menuInscripcion = new inscripcionMenu(this, (Inscripcion) view, pushSender);
-            menuActionsLayout.addComponent(menuInscripcion);
+            menuActionsLayout.removeAllComponents();
+            String currentViewName = getCurrentViewName();
+            if ("Alumnos".equals(currentViewName)) {
+                AlumnosMenu alumnosMenu = new AlumnosMenu(this);
+                menuActionsLayout.addComponent(alumnosMenu);
+            } else if ("Tutores".equals(currentViewName)) {
+                TutoresMenu tutoresMenu = new TutoresMenu(this);
+                menuActionsLayout.addComponent(tutoresMenu);
+            } else if ("Inscripcion".equals(currentViewName)) {
+                pushEnviar pushSender = new pushEnviar();
+                inscripcionMenu menuInscripcion = new inscripcionMenu(this, (Inscripcion) view, pushSender);
+                menuActionsLayout.addComponent(menuInscripcion);
+            } else if ("editAlumno".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
+                // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
+                editAlumnoMenu editAlumnoMenu = new editAlumnoMenu(this);
+                menuActionsLayout.addComponent(editAlumnoMenu);
+            }
         }
-    }
+        
 
         private String getCurrentViewName() {
             return (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);
