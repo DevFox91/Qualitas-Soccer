@@ -76,6 +76,8 @@ public class formAlumnos extends VerticalLayout {
                 this.colegioField,
                 this.equipoAnteriorField);
 
+                
+
         addComponent(formLayout);
 
         this.guardarButton = ControlUI.createButtonGuardar();
