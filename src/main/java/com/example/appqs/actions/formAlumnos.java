@@ -7,8 +7,8 @@ import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.webConstructors.ControlUI;
-import com.example.appqs.webConstructors.pushEnviar;
-import com.example.appqs.webConstructors.SetupEnviarButton;
+
+
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -28,7 +28,7 @@ public class formAlumnos extends VerticalLayout {
     private TextField colegioField;
     private TextField equipoAnteriorField;
     private int id;
-    private pushEnviar pushSender;
+
 
     public TextField getNombreField() {
         return nombreField;
@@ -68,18 +68,14 @@ public class formAlumnos extends VerticalLayout {
 
     // Primer constructor, sin parámetros
     public formAlumnos() {
-        this.pushSender = new pushEnviar();
         initForm();
-        SetupEnviarButton.setupEnviarButton(this, this.nombreField, this.apellido1Field, this.apellido2Field,
-                this.fechaNacimientoField, this.direccionField, this.codigoPostalField,
-                this.alergiasField, this.colegioField, this.equipoAnteriorField, this.pushSender);
     }
 
     // Segundo constructor, con parámetros
     public formAlumnos(int id, String nombre, String apellido1, String apellido2,
                        Date fechaNacimiento, String direccion, int codigoPostal,
                        String alergias, String colegio, String equipoAnterior) {
-        this.pushSender = new pushEnviar();
+
 
         // Inicializar campos del formulario con valores recibidos
         this.id = id;
@@ -112,18 +108,12 @@ public class formAlumnos extends VerticalLayout {
                 this.colegioField,
                 this.equipoAnteriorField);
 
-                
-
         addComponent(formLayout);
 
         this.guardarButton = ControlUI.createButtonGuardar();
         setupGuardarButton();
 
         addComponent(this.guardarButton);
-
-        SetupEnviarButton.setupEnviarButton(this, this.nombreField, this.apellido1Field, this.apellido2Field,
-                this.fechaNacimientoField, this.direccionField, this.codigoPostalField,
-                this.alergiasField, this.colegioField, this.equipoAnteriorField, this.pushSender);
     }
 
     private void initForm() {
@@ -167,4 +157,20 @@ public class formAlumnos extends VerticalLayout {
             }
         });
     }
+
+    public String getFormValues() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(nombreField.getValue()).append("\n");
+        sb.append("Apellido1: ").append(apellido1Field.isEmpty() ? "campo vacío" : apellido1Field.getValue()).append("\n");
+        sb.append("Apellido2: ").append(apellido2Field.getValue()).append("\n");
+        sb.append("Fecha de Nacimiento: ").append(fechaNacimientoField.getValue()).append("\n");
+        sb.append("Dirección: ").append(direccionField.getValue()).append("\n");
+        sb.append("Código Postal: ").append(codigoPostalField.getValue()).append("\n");
+        sb.append("Alergias: ").append(alergiasField.getValue()).append("\n");
+        sb.append("Colegio: ").append(colegioField.getValue()).append("\n");
+        sb.append("Equipo Anterior: ").append(equipoAnteriorField.getValue()).append("\n");
+        return sb.toString();
+    }
+    
+    
 }

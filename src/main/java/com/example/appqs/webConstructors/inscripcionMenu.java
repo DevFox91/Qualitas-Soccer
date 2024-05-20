@@ -6,32 +6,42 @@ import com.example.appqs.views.Inscripcion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 
 public class inscripcionMenu extends HorizontalLayout {
 
     private Button toggleMenuButton;
-    private Button newAlumno;
+    private Button showFormValuesButton; // Botón para mostrar los valores del formulario
+    private Button enviarDatosButton; // Botón para enviar los datos del formulario a la base de datos
 
-    public inscripcionMenu(MainUI mainUI, formAlumnos form, pushEnviar pushSender) {
-        // Establecer la alineación de este HorizontalLayout a la derecha
-        this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
+    public inscripcionMenu(MainUI mainUI, Inscripcion inscripcion, pushEnviar pushSender) {
+    this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
-        // Crear botones y añadirlos horizontalmente
-        toggleMenuButton = new Button("<<");
-        newAlumno = new Button("Añadir Alumno");
+    // Obtener el formulario dentro de Inscripcion
+    formAlumnos form = inscripcion.getForm();
 
-        // Añadir botones al layout horizontal
-        addComponent(toggleMenuButton);
-        addComponent(newAlumno);
+    toggleMenuButton = new Button("<<");
 
-        // Configurar el listener para el botón toggleMenuButton
-        toggleMenuButton.addClickListener(event -> mainUI.toggleMenuVisibility());
+    showFormValuesButton = new Button("Mostrar Valores del Formulario");
+    enviarDatosButton = new Button("Enviar Datos");
 
-        // Configurar el listener para el botón "Añadir Alumno"
-        newAlumno.addClickListener(event -> mainUI.showView(new Inscripcion()));
-    }
+    // Comportamiento al hacer clic en el botón "Mostrar Valores del Formulario"
+    showFormValuesButton.addClickListener(event -> {
+        String formValues = form.getFormValues();
+        Notification.show(formValues, Notification.Type.HUMANIZED_MESSAGE);
+    });
 
-    public void setnewAlumnoListener(Button.ClickListener listener) {
-        newAlumno.addClickListener(listener);
-    }
+    // Comportamiento al hacer clic en el botón "Enviar Datos"
+    enviarDatosButton.addClickListener(event -> {
+        // Obtener los valores del formulario y enviarlos
+        pushSender.pushButtonEnviar(
+            form.getNombreField(), form.getApellido1Field(), form.getApellido2Field(),
+            form.getFechaNacimientoField(), form.getDireccionField(), form.getCodigoPostalField(),
+            form.getAlergiasField(), form.getColegioField(), form.getEquipoAnteriorField()
+        );
+    });
+
+    addComponents(toggleMenuButton, enviarDatosButton);
+}
+
 }

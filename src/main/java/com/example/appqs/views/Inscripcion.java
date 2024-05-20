@@ -3,20 +3,16 @@ package com.example.appqs.views;
 import com.example.appqs.actions.formAlumnos;
 import com.vaadin.ui.VerticalLayout;
 
-
-
 public class Inscripcion extends VerticalLayout {
-    private formAlumnos formAlumnos;
+    private formAlumnos form;
 
     public Inscripcion() {
-        // Crear una instancia de formAlumnos
-        formAlumnos = new formAlumnos();
-
-        // Agregar formAlumnos al diseño vertical
-        addComponent(formAlumnos);
+        form = new formAlumnos(); // Crear una instancia de formAlumnos
+        addComponent(form); // Agregar el formulario a la vista Inscripcion
     }
 
-    public formAlumnos getFormAlumnos() {
-        return formAlumnos;
+    // Método para obtener el formulario
+    public formAlumnos getForm() {
+        return form;
     }
 }
