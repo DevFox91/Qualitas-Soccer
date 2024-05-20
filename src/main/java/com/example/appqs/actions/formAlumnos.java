@@ -8,6 +8,7 @@ import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.webConstructors.ControlUI;
 import com.example.appqs.webConstructors.pushEnviar;
+import com.example.appqs.webConstructors.SetupEnviarButton;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -16,7 +17,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class formAlumnos extends VerticalLayout {
-    private Button enviarButton;
     private Button guardarButton;
     private TextField nombreField;
     private TextField apellido1Field;
@@ -34,7 +34,9 @@ public class formAlumnos extends VerticalLayout {
     public formAlumnos() {
         this.pushSender = new pushEnviar();
         initForm();
-        setupEnviarButton();
+        SetupEnviarButton.setupEnviarButton(this, this.nombreField, this.apellido1Field, this.apellido2Field,
+                this.fechaNacimientoField, this.direccionField, this.codigoPostalField,
+                this.alergiasField, this.colegioField, this.equipoAnteriorField, this.pushSender);
     }
 
     // Segundo constructor, con parámetros
@@ -80,6 +82,10 @@ public class formAlumnos extends VerticalLayout {
         setupGuardarButton();
 
         addComponent(this.guardarButton);
+
+        SetupEnviarButton.setupEnviarButton(this, this.nombreField, this.apellido1Field, this.apellido2Field,
+                this.fechaNacimientoField, this.direccionField, this.codigoPostalField,
+                this.alergiasField, this.colegioField, this.equipoAnteriorField, this.pushSender);
     }
 
     private void initForm() {
@@ -108,17 +114,6 @@ public class formAlumnos extends VerticalLayout {
         addComponent(formLayout);
     }
 
-    public void setupEnviarButton() {
-        this.enviarButton = ControlUI.createButtonEnviar();
-        this.enviarButton.addClickListener(event -> {
-            this.pushSender.pushButtonEnviar(
-                    this.nombreField, this.apellido1Field, this.apellido2Field, this.fechaNacimientoField,
-                    this.direccionField, this.codigoPostalField, this.alergiasField, this.colegioField,
-                    this.equipoAnteriorField);
-        });
-        addComponent(this.enviarButton);
-    }
-
     private void setupGuardarButton() {
         this.guardarButton.addClickListener(event -> {
             formAlumnosToDb.updatePersonalData(
@@ -135,4 +130,3 @@ public class formAlumnos extends VerticalLayout {
         });
     }
 }
-

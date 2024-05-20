@@ -19,11 +19,5 @@ public class inscripcionMenu extends HorizontalLayout {
 
         // Añadir botones al layout horizontal
         addComponent(toggleMenuButton);
-
-        // Configurar el listener para el botón toggleMenuButton
-        toggleMenuButton.addClickListener(event -> {
-            mainUI.toggleMenuVisibility();
-            form.setupEnviarButton(); // Configurar el botón de envío con los datos de formAlumnos
-        });
     }
 }
