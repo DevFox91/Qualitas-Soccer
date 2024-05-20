@@ -1,5 +1,6 @@
 package com.example.appqs;
 
+import com.example.appqs.actions.formAlumnos;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
@@ -114,8 +115,9 @@ public class AppQsApplication {
                 menuActionsLayout.addComponent(tutoresMenu);
             } else if ("Inscripcion".equals(currentViewName)) {
                 pushEnviar pushSender = new pushEnviar();
-                inscripcionMenu inscripcionMenu = new inscripcionMenu(this, pushSender);
-                menuActionsLayout.addComponent(inscripcionMenu);
+                formAlumnos form = new formAlumnos(); // Instancia de formAlumnos
+                inscripcionMenu menuInscripcion = new inscripcionMenu(this, form, pushSender);
+                menuActionsLayout.addComponent(menuInscripcion);
             }
         }
 

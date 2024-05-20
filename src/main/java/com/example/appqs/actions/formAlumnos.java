@@ -108,7 +108,7 @@ public class formAlumnos extends VerticalLayout {
         addComponent(formLayout);
     }
 
-    private void setupEnviarButton() {
+    public void setupEnviarButton() {
         this.enviarButton = ControlUI.createButtonEnviar();
         this.enviarButton.addClickListener(event -> {
             this.pushSender.pushButtonEnviar(
