@@ -30,6 +30,42 @@ public class formAlumnos extends VerticalLayout {
     private int id;
     private pushEnviar pushSender;
 
+    public TextField getNombreField() {
+        return nombreField;
+    }
+
+    public TextField getApellido1Field() {
+        return apellido1Field;
+    }
+
+    public TextField getApellido2Field() {
+        return apellido2Field;
+    }
+
+    public DateField getFechaNacimientoField() {
+        return fechaNacimientoField;
+    }
+
+    public TextField getDireccionField() {
+        return direccionField;
+    }
+
+    public TextField getCodigoPostalField() {
+        return codigoPostalField;
+    }
+
+    public TextField getAlergiasField() {
+        return alergiasField;
+    }
+
+    public TextField getColegioField() {
+        return colegioField;
+    }
+
+    public TextField getEquipoAnteriorField() {
+        return equipoAnteriorField;
+    }
+
     // Primer constructor, sin parámetros
     public formAlumnos() {
         this.pushSender = new pushEnviar();
