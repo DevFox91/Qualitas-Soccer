@@ -1,9 +1,11 @@
 package com.example.appqs;
 
+import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
+import com.example.appqs.views.editAlumno;
 import com.example.appqs.webConstructors.AlumnosMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.editAlumnoMenu;
@@ -123,7 +125,8 @@ public class AppQsApplication {
                 menuActionsLayout.addComponent(menuInscripcion);
             } else if ("editAlumno".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
                 // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
-                editAlumnoMenu editAlumnoMenu = new editAlumnoMenu(this);
+                formAlumnosToDb pushSender = new formAlumnosToDb();
+                editAlumnoMenu editAlumnoMenu = new editAlumnoMenu(this, (editAlumno) view, pushSender);
                 menuActionsLayout.addComponent(editAlumnoMenu);
             }
         }

@@ -1,11 +1,14 @@
 package com.example.appqs.webConstructors;
 
+import com.example.appqs.AppQsApplication;
 import com.example.appqs.AppQsApplication.MainUI;
 import com.example.appqs.actions.formAlumnos;
+import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.Inscripcion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
 
 public class inscripcionMenu extends HorizontalLayout {
 
@@ -33,7 +36,18 @@ public class inscripcionMenu extends HorizontalLayout {
                     form.getAlergiasField(), form.getColegioField(), form.getEquipoAnteriorField());
         });
 
-        addComponents(toggleMenuButton, enviarDatosButton);
+        // Crear el botón "Volver"
+        Button volverButton = new Button("Volver");
+        volverButton.addClickListener(event -> {
+            // Crear la vista Alumnos y mostrarla en el contentPanel
+            Alumnos alumnosView = new Alumnos();
+            UI currentUI = UI.getCurrent();
+            if (currentUI instanceof AppQsApplication.MainUI) {
+                ((AppQsApplication.MainUI) currentUI).showView(alumnosView);
+            }
+        });
+
+        addComponents(toggleMenuButton, enviarDatosButton, volverButton);
     }
 
 }

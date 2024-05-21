@@ -2,20 +2,12 @@ package com.example.appqs.actions;
 
 import java.util.Date;
 import java.time.ZoneId;
-import com.vaadin.ui.Notification;
-import com.example.appqs.AppQsApplication;
-import com.example.appqs.dbconnections.formAlumnosToDb;
-import com.example.appqs.views.Alumnos;
-import com.example.appqs.webConstructors.ControlUI;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class formAlumnos extends VerticalLayout {
-    private Button guardarButton;
     private TextField nombreField;
     private TextField apellido1Field;
     private TextField apellido2Field;
@@ -25,10 +17,14 @@ public class formAlumnos extends VerticalLayout {
     private TextField alergiasField;
     private TextField colegioField;
     private TextField equipoAnteriorField;
-    private int id;
+    private Integer id;
 
     public TextField getNombreField() {
         return nombreField;
+    }
+
+    public Integer getIdField() {
+        return id;
     }
 
     public TextField getApellido1Field() {
@@ -106,10 +102,6 @@ public class formAlumnos extends VerticalLayout {
                 this.equipoAnteriorField);
 
         addComponent(formLayout);
-
-        this.guardarButton = ControlUI.createButtonGuardar();
-        setupGuardarButton();
-        addComponent(this.guardarButton);
     }
 
     private void initForm() {
@@ -138,21 +130,7 @@ public class formAlumnos extends VerticalLayout {
         addComponent(formLayout);
     }
 
-    public void setupGuardarButton() {
-        this.guardarButton.addClickListener(event -> {
-            formAlumnosToDb.updatePersonalData(
-                    this.id, this.nombreField.getValue(), this.apellido1Field.getValue(), this.apellido2Field.getValue(),
-                    Date.from(this.fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    this.direccionField.getValue(), Integer.parseInt(this.codigoPostalField.getValue()),
-                    this.alergiasField.getValue(), this.colegioField.getValue(), this.equipoAnteriorField.getValue());
-            Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
-
-            UI currentUI = UI.getCurrent();
-            if (currentUI instanceof AppQsApplication.MainUI) {
-                ((AppQsApplication.MainUI) currentUI).showView(new Alumnos());
-            }
-        });
-    }
+    
 
     
 

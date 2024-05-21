@@ -47,6 +47,7 @@ public class editAlumno extends VerticalLayout {
     }
 
     public formAlumnos getFormAlumnos() {
+        System.out.println(formAlumnos);
         return formAlumnos;
     }
 }
