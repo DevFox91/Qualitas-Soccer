@@ -14,7 +14,7 @@ public class FTutor extends VerticalLayout {
         addComponent(formTutores);
     }
 
-    public formTutores getFormTutores() {
+    public formTutores getForm() {
         return formTutores;
     }
 }

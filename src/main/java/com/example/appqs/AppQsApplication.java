@@ -2,16 +2,19 @@ package com.example.appqs;
 
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.views.Alumnos;
+import com.example.appqs.views.FTutor;
 import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.views.editAlumno;
 import com.example.appqs.webConstructors.AlumnosMenu;
+import com.example.appqs.webConstructors.FTutorMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.editAlumnoMenu;
 import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
 import com.example.appqs.webConstructors.pushEnviarAlumno;
+import com.example.appqs.webConstructors.pushEnviarTutor;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -123,6 +126,10 @@ public class AppQsApplication {
                 pushEnviarAlumno pushSender = new pushEnviarAlumno();
                 inscripcionMenu menuInscripcion = new inscripcionMenu(this, (Inscripcion) view, pushSender);
                 menuActionsLayout.addComponent(menuInscripcion);
+            } else if ("FTutor".equals(currentViewName)) {
+                pushEnviarTutor pushSender = new pushEnviarTutor();
+                FTutorMenu menuFTutor = new FTutorMenu(this, (FTutor) view, pushSender);
+                menuActionsLayout.addComponent(menuFTutor);
             } else if ("editAlumno".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
                 // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
                 formAlumnosToDb pushSender = new formAlumnosToDb();
@@ -130,7 +137,6 @@ public class AppQsApplication {
                 menuActionsLayout.addComponent(editAlumnoMenu);
             }
         }
-        
 
         private String getCurrentViewName() {
             return (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);
