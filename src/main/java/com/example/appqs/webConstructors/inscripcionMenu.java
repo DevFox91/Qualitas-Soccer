@@ -15,7 +15,7 @@ public class inscripcionMenu extends HorizontalLayout {
     private Button toggleMenuButton;
     private Button enviarDatosButton; // Botón para enviar los datos del formulario a la base de datos
 
-    public inscripcionMenu(MainUI mainUI, Inscripcion inscripcion, pushEnviar pushSender) {
+    public inscripcionMenu(MainUI mainUI, Inscripcion inscripcion, pushEnviarAlumno pushSender) {
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
         // Obtener el formulario dentro de Inscripcion

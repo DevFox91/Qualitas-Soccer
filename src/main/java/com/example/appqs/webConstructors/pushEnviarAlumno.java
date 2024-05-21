@@ -10,7 +10,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 
-public class pushEnviar {
+public class pushEnviarAlumno {
     // Defino las variables necesarias para los métodos
     String apellido1;
     String apellido2;

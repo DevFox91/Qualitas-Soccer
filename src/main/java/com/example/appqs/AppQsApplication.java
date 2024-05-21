@@ -11,7 +11,7 @@ import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.editAlumnoMenu;
 import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
-import com.example.appqs.webConstructors.pushEnviar;
+import com.example.appqs.webConstructors.pushEnviarAlumno;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -120,7 +120,7 @@ public class AppQsApplication {
                 TutoresMenu tutoresMenu = new TutoresMenu(this);
                 menuActionsLayout.addComponent(tutoresMenu);
             } else if ("Inscripcion".equals(currentViewName)) {
-                pushEnviar pushSender = new pushEnviar();
+                pushEnviarAlumno pushSender = new pushEnviarAlumno();
                 inscripcionMenu menuInscripcion = new inscripcionMenu(this, (Inscripcion) view, pushSender);
                 menuActionsLayout.addComponent(menuInscripcion);
             } else if ("editAlumno".equals(currentViewName)) { // Verifica si la vista actual es editAlumno

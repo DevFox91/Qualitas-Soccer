@@ -1,7 +1,7 @@
 package com.example.appqs.trash;
 
 import com.example.appqs.webConstructors.ControlUI;
-import com.example.appqs.webConstructors.pushEnviar;
+import com.example.appqs.webConstructors.pushEnviarAlumno;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.DateField;
@@ -12,7 +12,7 @@ public class SetupEnviarButton {
     public static void setupEnviarButton(VerticalLayout layout, TextField nombreField, TextField apellido1Field,
                                          TextField apellido2Field, DateField fechaNacimientoField, TextField direccionField,
                                          TextField codigoPostalField, TextField alergiasField, TextField colegioField,
-                                         TextField equipoAnteriorField, pushEnviar pushSender) {
+                                         TextField equipoAnteriorField, pushEnviarAlumno pushSender) {
         Button enviarButton = ControlUI.createButtonEnviar();
         enviarButton.addClickListener(event -> {
             pushSender.pushButtonEnviar(
