@@ -2,21 +2,13 @@ package com.example.appqs.actions;
 
 import java.util.Date;
 import java.time.ZoneId;
-import com.vaadin.ui.Notification;
-import com.example.appqs.AppQsApplication;
-import com.example.appqs.dbconnections.formTutoresToDb;
-import com.example.appqs.views.Tutores;
-import com.example.appqs.webConstructors.ControlUI;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class formTutores extends VerticalLayout {
     // Defino las variables necesarias para los métodos
-    private Button guardarButton;
     private TextField nombreField;
     private TextField apellido1Field;
     private TextField apellido2Field;
@@ -30,6 +22,10 @@ public class formTutores extends VerticalLayout {
 
     public TextField getNombreField() {
         return nombreField;
+    }
+
+    public Integer getIdField() {
+        return id;
     }
 
     public TextField getApellido1Field() {
@@ -109,35 +105,15 @@ public class formTutores extends VerticalLayout {
                 profesionField,
                 ibanField);
 
-        // Llamada al método que crea un botón "guardar"
-        guardarButton = ControlUI.createButtonGuardar();
-
         // Llamada al método que lee los datos de una "id" en la base de datos
         updateTutor();
 
         // Agregar el formulario y el botón al diseño vertical
-        addComponents(formLayout, guardarButton);
+        addComponents(formLayout);
     }
 
     public void updateTutor() {
-        // Agregar el listener para el evento del botón de enviar
-        guardarButton.addClickListener(event -> {
-            // Actualizar los datos en la base de datos
-            formTutoresToDb.updatePersonalData(id, nombreField.getValue(), apellido1Field.getValue(),
-                    apellido2Field.getValue(),
-                    Date.from(fechaNacimientoField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    direccionField.getValue(), Integer.parseInt(codigoPostalField.getValue()), nifField.getValue(),
-                    profesionField.getValue(), ibanField.getValue());
-
-            // Mostrar mensaje de éxito
-            Notification.show("Datos modificados con éxito", Notification.Type.HUMANIZED_MESSAGE);
-
-            // Obtener el UI actual y cambiar la vista del content panel a "Tutores"
-            UI currentUI = UI.getCurrent();
-            if (currentUI instanceof AppQsApplication.MainUI) {
-                ((AppQsApplication.MainUI) currentUI).showView(new Tutores());
-            }
-        });
+        
     }
 
     private void initForm() {

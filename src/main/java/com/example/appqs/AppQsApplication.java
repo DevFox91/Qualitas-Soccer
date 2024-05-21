@@ -1,16 +1,19 @@
 package com.example.appqs;
 
 import com.example.appqs.dbconnections.formAlumnosToDb;
+import com.example.appqs.dbconnections.formTutoresToDb;
 import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.FTutor;
 import com.example.appqs.views.Inscripcion;
 import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.views.editAlumno;
+import com.example.appqs.views.editTutor;
 import com.example.appqs.webConstructors.AlumnosMenu;
 import com.example.appqs.webConstructors.FTutorMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
 import com.example.appqs.webConstructors.editAlumnoMenu;
+import com.example.appqs.webConstructors.editTutorMenu;
 import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
 import com.example.appqs.webConstructors.pushEnviarAlumno;
@@ -135,6 +138,11 @@ public class AppQsApplication {
                 formAlumnosToDb pushSender = new formAlumnosToDb();
                 editAlumnoMenu editAlumnoMenu = new editAlumnoMenu(this, (editAlumno) view, pushSender);
                 menuActionsLayout.addComponent(editAlumnoMenu);
+            } else if ("editTutor".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
+                // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
+                formTutoresToDb pushSender = new formTutoresToDb();
+                editTutorMenu editTutorMenu = new editTutorMenu(this, (editTutor) view, pushSender);
+                menuActionsLayout.addComponent(editTutorMenu);
             }
         }
 
