@@ -66,9 +66,8 @@ public class formAlumnos extends VerticalLayout {
 
     // Segundo constructor, con parámetros
     public formAlumnos(int id, String nombre, String apellido1, String apellido2,
-                       Date fechaNacimiento, String direccion, int codigoPostal,
-                       String alergias, String colegio, String equipoAnterior) {
-
+            Date fechaNacimiento, String direccion, int codigoPostal,
+            String alergias, String colegio, String equipoAnterior) {
 
         // Inicializar campos del formulario con valores recibidos
         this.id = id;
@@ -80,7 +79,8 @@ public class formAlumnos extends VerticalLayout {
         this.apellido2Field = new TextField("Segundo Apellido", apellido2);
         this.fechaNacimientoField = new DateField("Fecha de Nacimiento");
         if (fechaNacimiento != null) {
-            this.fechaNacimientoField.setValue(fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            this.fechaNacimientoField
+                    .setValue(fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         }
         this.direccionField = new TextField("Dirección", direccion);
         this.codigoPostalField = new TextField("Código Postal", String.valueOf(codigoPostal));
@@ -130,14 +130,11 @@ public class formAlumnos extends VerticalLayout {
         addComponent(formLayout);
     }
 
-    
-
-    
-
     public String getFormValues() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(nombreField.getValue()).append("\n");
-        sb.append("Apellido1: ").append(apellido1Field.isEmpty() ? "campo vacío" : apellido1Field.getValue()).append("\n");
+        sb.append("Apellido1: ").append(apellido1Field.isEmpty() ? "campo vacío" : apellido1Field.getValue())
+                .append("\n");
         sb.append("Apellido2: ").append(apellido2Field.getValue()).append("\n");
         sb.append("Fecha de Nacimiento: ").append(fechaNacimientoField.getValue()).append("\n");
         sb.append("Dirección: ").append(direccionField.getValue()).append("\n");
@@ -147,6 +144,5 @@ public class formAlumnos extends VerticalLayout {
         sb.append("Equipo Anterior: ").append(equipoAnteriorField.getValue()).append("\n");
         return sb.toString();
     }
-    
-    
+
 }

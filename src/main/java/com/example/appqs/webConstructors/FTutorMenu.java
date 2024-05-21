@@ -3,8 +3,8 @@ package com.example.appqs.webConstructors;
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.AppQsApplication.MainUI;
 import com.example.appqs.actions.formTutores;
-import com.example.appqs.views.Alumnos;
 import com.example.appqs.views.FTutor;
+import com.example.appqs.views.Tutores;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -40,10 +40,10 @@ public class FTutorMenu extends HorizontalLayout {
         Button volverButton = new Button("Volver");
         volverButton.addClickListener(event -> {
             // Crear la vista Alumnos y mostrarla en el contentPanel
-            Alumnos alumnosView = new Alumnos();
+            Tutores tutoresView = new Tutores();
             UI currentUI = UI.getCurrent();
             if (currentUI instanceof AppQsApplication.MainUI) {
-                ((AppQsApplication.MainUI) currentUI).showView(alumnosView);
+                ((AppQsApplication.MainUI) currentUI).showView(tutoresView);
             }
         });
 

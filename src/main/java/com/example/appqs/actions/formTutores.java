@@ -13,11 +13,9 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.example.appqs.webConstructors.pushEnviarTutor;
 
 public class formTutores extends VerticalLayout {
     // Defino las variables necesarias para los métodos
-    private Button enviarButton;
     private Button guardarButton;
     private TextField nombreField;
     private TextField apellido1Field;
@@ -29,7 +27,6 @@ public class formTutores extends VerticalLayout {
     private TextField nifField;
     private TextField ibanField;
     private int id;
-    private pushEnviarTutor pushSender;
 
     public TextField getNombreField() {
         return nombreField;
@@ -39,7 +36,7 @@ public class formTutores extends VerticalLayout {
         return apellido1Field;
     }
 
-    public TextField getApellido2Field(){
+    public TextField getApellido2Field() {
         return apellido2Field;
     }
 
@@ -55,15 +52,15 @@ public class formTutores extends VerticalLayout {
         return codigoPostalField;
     }
 
-    public TextField getNifField(){
+    public TextField getNifField() {
         return nifField;
     }
 
-    public TextField getProfesionField(){
+    public TextField getProfesionField() {
         return profesionField;
     }
 
-    public TextField getIbanField(){
+    public TextField getIbanField() {
         return ibanField;
     }
 
@@ -72,21 +69,9 @@ public class formTutores extends VerticalLayout {
     public formTutores() {
         initForm();
 
-        // Llamada al método que crea un botón "enviar"
-        enviarButton = ControlUI.createButtonEnviar();
-
-        // Agregar el listener para el evento del botón de enviar
-        enviarButton.addClickListener(event -> {
-            pushSender.pushButtonEnviar(nombreField, apellido1Field, apellido2Field, fechaNacimientoField,
-                    direccionField, codigoPostalField, nifField, profesionField, ibanField);
-        });
-
-        // Agregar el formulario y el botón al diseño vertical
-        addComponents(enviarButton);
     }
 
     // Segundo constructor, se trae los datos de la base de datos, según la id del
-    // alumno sobre la cual ejecutamos
     public formTutores(int id, String nombre, String apellido1, String apellido2,
             Date fechaNacimiento, String direccion, int codigoPostal,
             String nif, String profesion, String iban) {
