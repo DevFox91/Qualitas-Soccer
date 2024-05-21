@@ -2,12 +2,9 @@ package com.example.appqs.views;
 
 import java.util.Date;
 
-import com.example.appqs.AppQsApplication;
 import com.example.appqs.actions.formAlumnos;
 import com.vaadin.annotations.StyleSheet;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @StyleSheet("/com/example/appqs/CSS/styles.css")
@@ -22,25 +19,10 @@ public class editAlumno extends VerticalLayout {
         titleLabel.setStyleName("title-label");
         addComponent(titleLabel);
 
-        // Crear el botón "Volver"
-        Button volverButton = new Button("Volver");
-        volverButton.addClickListener(event -> {
-            // Crear la vista Alumnos y mostrarla en el contentPanel
-            Alumnos alumnosView = new Alumnos();
-            UI currentUI = UI.getCurrent();
-            if (currentUI instanceof AppQsApplication.MainUI) {
-                ((AppQsApplication.MainUI) currentUI).showView(alumnosView);
-            }
-        });
-
-        // Agregar el botón "Volver" a la vista editAlumno
-        addComponent(volverButton);
-
         // Crear una instancia de formAlumnos con los datos proporcionados
         formAlumnos = new formAlumnos(id, nombre, apellido1, apellido2, fechaNacimiento,
                 direccion, codigoPostal, alergias, colegio, equipoAnterior);
-        // Agregar el botón "Volver" a la vista editAlumno
-        addComponent(volverButton);
+
         // Agregar formAlumnos al diseño vertical
         addComponent(formAlumnos);
 
