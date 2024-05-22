@@ -144,7 +144,7 @@ public class AppQsApplication {
                 formTutoresToDb pushSender = new formTutoresToDb();
                 editTutorMenu editTutorMenu = new editTutorMenu(this, (editTutor) view, pushSender);
                 menuActionsLayout.addComponent(editTutorMenu);
-            } else if ("relacionFamiliar".equals(currentViewName)) {
+            } else if ("gridRelacionFamiliar".equals(currentViewName)) {
                 relacionFamiliarMenu relacionFamiliarMenu = new relacionFamiliarMenu(this);
                 menuActionsLayout.addComponent(relacionFamiliarMenu);
             }

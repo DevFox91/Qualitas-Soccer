@@ -3,7 +3,6 @@ package com.example.appqs.actions;
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.dbToAlumnos;
 import com.example.appqs.views.editAlumno;
-import com.example.appqs.views.relacionFamiliar;
 import com.example.appqs.webConstructors.hideRegistro;
 
 import java.util.List;
@@ -52,7 +51,9 @@ public class gridAlumnos extends VerticalLayout {
                                 String apellido1 = resultSet.getString("apellido1");
                                 String apellido2 = resultSet.getString("apellido2");
                                 Date fnacimientoSql = resultSet.getDate("fnacimiento");
-                                java.util.Date fnacimiento = fnacimientoSql != null ? new java.util.Date(fnacimientoSql.getTime()) : null;
+                                java.util.Date fnacimiento = fnacimientoSql != null
+                                        ? new java.util.Date(fnacimientoSql.getTime())
+                                        : null;
                                 String direccion = resultSet.getString("direccion");
                                 int cpostal = resultSet.getInt("cpostal");
                                 String alergias = resultSet.getString("alergias");
@@ -60,7 +61,8 @@ public class gridAlumnos extends VerticalLayout {
                                 String anterior = resultSet.getString("anterior");
 
                                 // Crear la vista editAlumno y enviar los datos
-                                editAlumno editAlumnoView = new editAlumno(idValue, nombre, apellido1, apellido2, fnacimiento,
+                                editAlumno editAlumnoView = new editAlumno(idValue, nombre, apellido1, apellido2,
+                                        fnacimiento,
                                         direccion, cpostal, alergias, colegio, anterior);
                                 Optional<UI> currentUI = Optional.ofNullable(UI.getCurrent());
                                 currentUI.ifPresent(ui -> {
@@ -89,8 +91,14 @@ public class gridAlumnos extends VerticalLayout {
             // Botón para ver relaciones familiares
             Button familyButton = new Button("👨‍👩‍👧‍👦");
             familyButton.addClickListener(event -> {
+                // Obtener el objeto de la fila seleccionada
+                Object[] rowData = row;
+
+                // Obtener el valor de la columna "ID"
+                int idValue = (int) rowData[0]; // Suponiendo que el ID está en la primera columna
+
                 // Crear la vista relaciónFamiliar
-                relacionFamiliar relacionFamiliarView = new relacionFamiliar();
+                gridRelacionFamiliar relacionFamiliarView = new gridRelacionFamiliar(idValue);
                 Optional<UI> currentUI = Optional.ofNullable(UI.getCurrent());
                 currentUI.ifPresent(ui -> {
                     if (ui instanceof AppQsApplication.MainUI) {
