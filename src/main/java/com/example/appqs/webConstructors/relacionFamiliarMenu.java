@@ -73,7 +73,7 @@ public class relacionFamiliarMenu extends HorizontalLayout {
         String password = "12345";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "SELECT nombre, apellido1, apellido2 FROM personal WHERE tipopersona = 2";
+            String sql = "SELECT nombre, apellido1, apellido2 FROM personal WHERE tipopersona = 2 AND delete = false";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
