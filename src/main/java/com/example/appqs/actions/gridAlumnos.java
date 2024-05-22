@@ -3,6 +3,7 @@ package com.example.appqs.actions;
 import com.example.appqs.AppQsApplication;
 import com.example.appqs.dbconnections.dbToAlumnos;
 import com.example.appqs.views.editAlumno;
+import com.example.appqs.views.relacionFamiliar;
 import com.example.appqs.webConstructors.hideRegistro;
 
 import java.util.List;
@@ -88,7 +89,14 @@ public class gridAlumnos extends VerticalLayout {
             // Botón para ver relaciones familiares
             Button familyButton = new Button("👨‍👩‍👧‍👦");
             familyButton.addClickListener(event -> {
-                // Lógica para ver relaciones familiares
+                // Crear la vista relaciónFamiliar
+                relacionFamiliar relacionFamiliarView = new relacionFamiliar();
+                Optional<UI> currentUI = Optional.ofNullable(UI.getCurrent());
+                currentUI.ifPresent(ui -> {
+                    if (ui instanceof AppQsApplication.MainUI) {
+                        ((AppQsApplication.MainUI) ui).showView(relacionFamiliarView);
+                    }
+                });
             });
             layout.addComponent(familyButton);
 

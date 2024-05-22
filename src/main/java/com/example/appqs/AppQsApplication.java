@@ -18,6 +18,7 @@ import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
 import com.example.appqs.webConstructors.pushEnviarAlumno;
 import com.example.appqs.webConstructors.pushEnviarTutor;
+import com.example.appqs.webConstructors.relacionFamiliarMenu;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -143,6 +144,9 @@ public class AppQsApplication {
                 formTutoresToDb pushSender = new formTutoresToDb();
                 editTutorMenu editTutorMenu = new editTutorMenu(this, (editTutor) view, pushSender);
                 menuActionsLayout.addComponent(editTutorMenu);
+            } else if ("relacionFamiliar".equals(currentViewName)) {
+                relacionFamiliarMenu relacionFamiliarMenu = new relacionFamiliarMenu(this);
+                menuActionsLayout.addComponent(relacionFamiliarMenu);
             }
         }
 
