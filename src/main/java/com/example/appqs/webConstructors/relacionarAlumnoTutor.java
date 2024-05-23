@@ -7,10 +7,12 @@ import java.util.List;
 
 public class relacionarAlumnoTutor extends VerticalLayout {
 
+    private int alumnoId; // Ahora alumnoId es un campo de instancia
     private Grid<Tutor> tutorGrid;
     private TextField searchField;
 
     public relacionarAlumnoTutor(int alumnoId, String nombre, String apellido1, String apellido2) {
+        this.alumnoId = alumnoId; // Asignamos el valor de alumnoId al campo de instancia
         Label alumnoInfo = new Label("El alumno seleccionado es: " + nombre + " " + apellido1 + " " + apellido2 + " (Id: " + alumnoId + ")");
         addComponent(alumnoInfo);
 
@@ -29,8 +31,12 @@ public class relacionarAlumnoTutor extends VerticalLayout {
         }).setCaption("Seleccionar");
         addComponent(tutorGrid);
 
-        List<Tutor> tutores = obtenerTutores();
+        List<Tutor> tutores = obtenerTutores(); // Ahora podemos acceder directamente a alumnoId
         tutorGrid.setItems(tutores);
+    }
+
+    public int getAlumnoId() {
+        return alumnoId;
     }
 
     private List<Tutor> obtenerTutores() {
@@ -48,7 +54,7 @@ public class relacionarAlumnoTutor extends VerticalLayout {
                         String nombre = resultSet.getString("nombre");
                         String apellido1 = resultSet.getString("apellido1");
                         String apellido2 = resultSet.getString("apellido2");
-                        tutores.add(new Tutor(id, nombre, apellido1, apellido2));
+                        tutores.add(new Tutor(id, nombre, apellido1, apellido2)); // No es necesario pasar alumnoId aquí
                     }
                 }
             }
@@ -60,7 +66,7 @@ public class relacionarAlumnoTutor extends VerticalLayout {
     }
 
     private void filterTutors(String filterText) {
-        List<Tutor> filteredTutors = obtenerTutores();
+        List<Tutor> filteredTutors = obtenerTutores(); // Ahora podemos acceder directamente a alumnoId
         if (filterText != null && !filterText.isEmpty()) {
             filteredTutors.removeIf(tutor -> !tutor.getNombreCompleto().toLowerCase().contains(filterText.toLowerCase()));
         }
