@@ -1,5 +1,6 @@
 package com.example.appqs;
 
+import com.example.appqs.actions.gridRelacionFamiliar;
 import com.example.appqs.dbconnections.formAlumnosToDb;
 import com.example.appqs.dbconnections.formTutoresToDb;
 import com.example.appqs.views.Alumnos;
@@ -37,6 +38,7 @@ public class AppQsApplication {
 
     private static final String CONTENT_PANEL_ATTRIBUTE = "contentPanel";
     private static final String CURRENT_VIEW_ATTRIBUTE = "currentView";
+    private static final String ALUMNO_ID_ATTRIBUTE = "alumnoId";
 
     public static void main(String[] args) {
         SpringApplication.run(AppQsApplication.class, args);
@@ -110,6 +112,11 @@ public class AppQsApplication {
                 if (contentPanel != null) {
                     contentPanel.setContent(view);
                     VaadinSession.getCurrent().setAttribute(CURRENT_VIEW_ATTRIBUTE, view.getClass().getSimpleName());
+                    if (view instanceof gridRelacionFamiliar) {
+                        gridRelacionFamiliar relacionFamiliarView = (gridRelacionFamiliar) view;
+                        VaadinSession.getCurrent().setAttribute(ALUMNO_ID_ATTRIBUTE,
+                                relacionFamiliarView.getAlumnoId());
+                    }
                     updateMenu(view);
                 } else {
                     System.out.println("El contentPanel es null");
@@ -134,21 +141,21 @@ public class AppQsApplication {
                 pushEnviarTutor pushSender = new pushEnviarTutor();
                 FTutorMenu menuFTutor = new FTutorMenu(this, (FTutor) view, pushSender);
                 menuActionsLayout.addComponent(menuFTutor);
-            } else if ("editAlumno".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
-                // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
+            } else if ("editAlumno".equals(currentViewName)) {
                 formAlumnosToDb pushSender = new formAlumnosToDb();
                 editAlumnoMenu editAlumnoMenu = new editAlumnoMenu(this, (editAlumno) view, pushSender);
                 menuActionsLayout.addComponent(editAlumnoMenu);
-            } else if ("editTutor".equals(currentViewName)) { // Verifica si la vista actual es editAlumno
-                // Crea una instancia del menú editAlumnoMenu y agrégalo al layout
+            } else if ("editTutor".equals(currentViewName)) {
                 formTutoresToDb pushSender = new formTutoresToDb();
                 editTutorMenu editTutorMenu = new editTutorMenu(this, (editTutor) view, pushSender);
                 menuActionsLayout.addComponent(editTutorMenu);
             } else if ("gridRelacionFamiliar".equals(currentViewName)) {
-                relacionFamiliarMenu relacionFamiliarMenu = new relacionFamiliarMenu(this);
+                Integer alumnoId = (Integer) VaadinSession.getCurrent().getAttribute(ALUMNO_ID_ATTRIBUTE);
+                relacionFamiliarMenu relacionFamiliarMenu = new relacionFamiliarMenu(this, alumnoId != null ? alumnoId : -1);
                 menuActionsLayout.addComponent(relacionFamiliarMenu);
             }
         }
+        
 
         private String getCurrentViewName() {
             return (String) VaadinSession.getCurrent().getAttribute(CURRENT_VIEW_ATTRIBUTE);

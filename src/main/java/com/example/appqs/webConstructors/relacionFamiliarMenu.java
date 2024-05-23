@@ -10,8 +10,7 @@ import com.vaadin.ui.UI;
 public class relacionFamiliarMenu extends HorizontalLayout {
 
     private Button toggleMenuButton;
-
-    public relacionFamiliarMenu(AppQsApplication.MainUI mainUI) {
+    public relacionFamiliarMenu(AppQsApplication.MainUI mainUI, int alumnoId) {
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
         toggleMenuButton = new Button("<<");
@@ -32,6 +31,10 @@ public class relacionFamiliarMenu extends HorizontalLayout {
 
         // Crear el botón "Relacionar"
         Button relacionarButton = new Button("Relacionar");
+        relacionarButton.addClickListener(event -> {
+            // Imprimir el id del alumno en consola
+            System.out.println("ID del Alumno: " + alumnoId);
+        });
 
         addComponents(toggleMenuButton, relacionarButton, volverButton);
     }

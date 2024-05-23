@@ -1,5 +1,6 @@
 package com.example.appqs.actions;
 
+import com.example.appqs.webConstructors.relacionFamiliarMenu;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 
@@ -9,7 +10,11 @@ import java.util.List;
 
 public class gridRelacionFamiliar extends VerticalLayout {
 
+    private int alumnoId;
+
     public gridRelacionFamiliar(int alumnoId) {
+        this.alumnoId = alumnoId;
+        
         // Crea un Grid
         Grid<Object[]> grid = new Grid<>();
 
@@ -91,6 +96,10 @@ public class gridRelacionFamiliar extends VerticalLayout {
 
     private String getEntrenadorById(Connection connection, int id) throws SQLException {
         return getNombreCompletoById(connection, "personal", id);
+    }
+
+    public int getAlumnoId() {
+        return alumnoId;
     }
 
 }
