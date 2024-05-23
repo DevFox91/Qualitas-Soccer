@@ -19,7 +19,7 @@ import com.example.appqs.webConstructors.inscripcionMenu;
 import com.example.appqs.webConstructors.leftMenu;
 import com.example.appqs.webConstructors.pushEnviarAlumno;
 import com.example.appqs.webConstructors.pushEnviarTutor;
-import com.example.appqs.webConstructors.relacionFamiliarMenu;
+import com.example.appqs.webConstructors.gridRelacionFamiliarMenu;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -151,7 +151,7 @@ public class AppQsApplication {
                 menuActionsLayout.addComponent(editTutorMenu);
             } else if ("gridRelacionFamiliar".equals(currentViewName)) {
                 Integer alumnoId = (Integer) VaadinSession.getCurrent().getAttribute(ALUMNO_ID_ATTRIBUTE);
-                relacionFamiliarMenu relacionFamiliarMenu = new relacionFamiliarMenu(this, alumnoId != null ? alumnoId : -1);
+                gridRelacionFamiliarMenu relacionFamiliarMenu = new gridRelacionFamiliarMenu(this, alumnoId != null ? alumnoId : -1);
                 menuActionsLayout.addComponent(relacionFamiliarMenu);
             }
         }

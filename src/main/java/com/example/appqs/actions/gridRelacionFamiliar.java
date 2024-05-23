@@ -1,6 +1,5 @@
 package com.example.appqs.actions;
 
-import com.example.appqs.webConstructors.relacionFamiliarMenu;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 
