@@ -73,7 +73,7 @@ public class relacionarAlumnoTutor extends VerticalLayout {
         tutorGrid.setItems(filteredTutors);
     }
 
-    private static class Tutor {
+    public static class Tutor {
         private int id;
         private String nombre;
         private String apellido1;
