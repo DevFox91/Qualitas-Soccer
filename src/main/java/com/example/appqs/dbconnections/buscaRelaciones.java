@@ -148,5 +148,23 @@ public class buscaRelaciones {
         }
         return nombreCompleto;
     }
-    
+
+    public static class Personal {
+        private int id;
+        private String nombre;
+
+        public Personal(int id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+    }
 }
+    
