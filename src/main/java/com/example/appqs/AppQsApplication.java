@@ -10,6 +10,7 @@ import com.example.appqs.views.Personal;
 import com.example.appqs.views.Tutores;
 import com.example.appqs.views.editAlumno;
 import com.example.appqs.views.editTutor;
+import com.example.appqs.views.relacionarAlumnoTutor;
 import com.example.appqs.webConstructors.AlumnosMenu;
 import com.example.appqs.webConstructors.FTutorMenu;
 import com.example.appqs.webConstructors.TutoresMenu;
@@ -108,22 +109,37 @@ public class AppQsApplication {
         }
 
         public void showView(VerticalLayout view) {
-            if (view != null) {
-                Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
-                if (contentPanel != null) {
-                    contentPanel.setContent(view);
-                    VaadinSession.getCurrent().setAttribute(CURRENT_VIEW_ATTRIBUTE, view.getClass().getSimpleName());
-                    if (view instanceof gridRelacionFamiliar) {
-                        gridRelacionFamiliar relacionFamiliarView = (gridRelacionFamiliar) view;
-                        VaadinSession.getCurrent().setAttribute(ALUMNO_ID_ATTRIBUTE,
-                                relacionFamiliarView.getAlumnoId());
-                    }
-                    updateMenu(view);
-                } else {
-                    System.out.println("El contentPanel es null");
-                }
+    // Verifica si la vista recibida no es nula
+    if (view != null) {
+        // Obtiene el panel de contenido actual de la sesión de Vaadin
+        Panel contentPanel = (Panel) VaadinSession.getCurrent().getAttribute(CONTENT_PANEL_ATTRIBUTE);
+        // Verifica si el panel de contenido no es nulo
+        if (contentPanel != null) {
+            // Establece la vista recibida como el contenido del panel
+            contentPanel.setContent(view);
+            // Guarda el nombre de la clase de la vista actual en un atributo de la sesión
+            VaadinSession.getCurrent().setAttribute(CURRENT_VIEW_ATTRIBUTE, view.getClass().getSimpleName());
+            // Verifica si la vista es una instancia de gridRelacionFamiliar
+            if (view instanceof gridRelacionFamiliar) {
+                // Realiza acciones específicas si la vista es de ese tipo
+                gridRelacionFamiliar relacionFamiliarView = (gridRelacionFamiliar) view;
+                // Guarda el ID del alumno de la vista en un atributo de la sesión
+                VaadinSession.getCurrent().setAttribute(ALUMNO_ID_ATTRIBUTE, relacionFamiliarView.getAlumnoId());
+            } else if (view instanceof relacionarAlumnoTutor) {
+                // Realiza acciones específicas si la vista es de tipo relacionarAlumnoTutor
+                // Obtiene el alumnoId y el tutorId
+                // Hacer lo que necesites con alumnoId y tutorId
             }
+            // Actualiza el menú de la aplicación de acuerdo con la vista actual
+            updateMenu(view);
+        } else {
+            // Imprime un mensaje si el panel de contenido es nulo
+            System.out.println("El contentPanel es null");
         }
+    }
+}
+
+        
 
         private void updateMenu(VerticalLayout view) {
             menuActionsLayout.removeAllComponents();
@@ -155,7 +171,9 @@ public class AppQsApplication {
                 gridRelacionFamiliarMenu relacionFamiliarMenu = new gridRelacionFamiliarMenu(this, alumnoId != null ? alumnoId : -1);
                 menuActionsLayout.addComponent(relacionFamiliarMenu);
             } else if ("relacionarAlumnoTutor".equals(currentViewName)) {
-                relacionarAlumnoTutorMenu relacionarAlumnoTutorMenu = new relacionarAlumnoTutorMenu(this);
+                int alumnoId = relacionarAlumnoTutor.getAlumnoId();
+                Integer tutorId = relacionarAlumnoTutor.getIdRelacionado();
+                relacionarAlumnoTutorMenu relacionarAlumnoTutorMenu = new relacionarAlumnoTutorMenu(this, alumnoId, tutorId);
                 menuActionsLayout.addComponent(relacionarAlumnoTutorMenu);
             }
 
