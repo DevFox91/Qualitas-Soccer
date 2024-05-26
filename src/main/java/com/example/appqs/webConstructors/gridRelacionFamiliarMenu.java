@@ -15,12 +15,8 @@ import java.util.List;
 public class gridRelacionFamiliarMenu extends HorizontalLayout {
 
     private Button toggleMenuButton;
-    private int alumnoId;
-
     public gridRelacionFamiliarMenu(AppQsApplication.MainUI mainUI, int alumnoId) {
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        this.alumnoId = alumnoId;
-
         toggleMenuButton = new Button("<<");
 
         // Configurar el listener para el botón toggleMenuButton
