@@ -152,19 +152,67 @@ public class buscaRelaciones {
     public static class Personal {
         private int id;
         private String nombre;
-
+        private boolean selected;
+    
         public Personal(int id, String nombre) {
             this.id = id;
             this.nombre = nombre;
+            this.selected = false;
         }
-
+    
         public int getId() {
             return id;
         }
-
+    
         public String getNombre() {
             return nombre;
         }
+    
+        public boolean isSelected() {
+            return selected;
+        }
+    
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
     }
+    
+
+    public static List<Personal> obtenerPersonas() {
+        List<Personal> personas = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            String sql = "SELECT id, nombre, apellido1, apellido2 FROM personal WHERE tipopersona = 2 AND delete = false";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre") + " " + rs.getString("apellido1") + " " + rs.getString("apellido2");
+                personas.add(new Personal(id, nombre));
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se2) {
+            }
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return personas;
+    }
+    
 }
     
