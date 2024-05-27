@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.vaadin.ui.Notification;
+
 
 public class prepararRelacion {
 
@@ -21,7 +23,7 @@ public class prepararRelacion {
                 statement.setInt(2, idtipo2 != null ? idtipo2 : 0); // Si idtipo2 es null, usar 0
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
-                        System.out.println("Ya existe una fila con esos datos en la tabla relaciones.");
+                        Notification.show("Ya existe una fila con esos datos en la tabla relaciones", Notification.Type.WARNING_MESSAGE);
                         return; // Salir del método si la fila ya existe
                     }
                 }
@@ -34,13 +36,13 @@ public class prepararRelacion {
                 statement.setInt(2, idtipo2 != null ? idtipo2 : 0); // Si idtipo2 es null, usar 0
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("Se ha creado una nueva fila en la tabla relaciones.");
+                    Notification.show("Se ha creado una nueva fila en la tabla relaciones", Notification.Type.HUMANIZED_MESSAGE);
                 } else {
-                    System.out.println("No se ha podido crear una nueva fila en la tabla relaciones.");
+                    Notification.show("No se ha podido crear una nueva fila en la tabla relaciones", Notification.Type.ERROR_MESSAGE);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            Notification.show("Error al conectar con la base de datos: " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
 }

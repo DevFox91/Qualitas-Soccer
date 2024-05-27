@@ -29,8 +29,8 @@ public class relacionarAlumnoTutorMenu extends HorizontalLayout {
 
         // Configurar el listener para el botón Añadir Relacion
         alumnosButton.addClickListener(event -> {
-            int alumnoId = relacionarAlumnoTutorView.getAlumnoId();
-            Integer tutorIdSeleccionado = relacionarAlumnoTutorView.getIdRelacionado();
+            int alumnoId = relacionarAlumnoTutor.getAlumnoId();
+            Integer tutorIdSeleccionado = relacionarAlumnoTutor.getIdRelacionado();
             prepararRelacion.prepararRelacionIds(alumnoId, tutorIdSeleccionado);
         });
     }
