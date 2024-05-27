@@ -171,9 +171,8 @@ public class AppQsApplication {
                 gridRelacionFamiliarMenu relacionFamiliarMenu = new gridRelacionFamiliarMenu(this, alumnoId != null ? alumnoId : -1);
                 menuActionsLayout.addComponent(relacionFamiliarMenu);
             } else if ("relacionarAlumnoTutor".equals(currentViewName)) {
-                int alumnoId = relacionarAlumnoTutor.getAlumnoId();
-                Integer tutorId = relacionarAlumnoTutor.getIdRelacionado();
-                relacionarAlumnoTutorMenu relacionarAlumnoTutorMenu = new relacionarAlumnoTutorMenu(this, alumnoId, tutorId);
+                relacionarAlumnoTutor relacionarAlumnoTutorView = (relacionarAlumnoTutor) view;
+                relacionarAlumnoTutorMenu relacionarAlumnoTutorMenu = new relacionarAlumnoTutorMenu(this, relacionarAlumnoTutorView);
                 menuActionsLayout.addComponent(relacionarAlumnoTutorMenu);
             }
 

@@ -8,14 +8,12 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.example.appqs.dbconnections.buscaRelaciones.Personal;
 import com.example.appqs.actions.prepararRelacion;
 
 public class relacionarAlumnoTutor extends VerticalLayout {
     private static int alumnoId;
-    private static List<Personal> personas;
     private static Map<CheckBox, Personal> checkBoxPersonalMap;
     private static Integer tutorIdSeleccionado; // Variable para almacenar la ID del tutor seleccionado
 
@@ -73,8 +71,6 @@ public class relacionarAlumnoTutor extends VerticalLayout {
         });
         addComponent(prepararRelacionButton);
 
-        // Asignar personas al campo de clase personas
-        relacionarAlumnoTutor.personas = personas;
         relacionarAlumnoTutor.alumnoId = alumnoId;
     }
 
