@@ -11,7 +11,7 @@ public class relacionarAlumnoTutorMenu extends HorizontalLayout {
     private Button alumnosButton;
     public Button toggleMenuButton;
 
-    public relacionarAlumnoTutorMenu(MainUI mainUI, int alumnoId, Integer tutorId) {
+    public relacionarAlumnoTutorMenu(MainUI mainUI, int alumnoId, Integer tutorIdSeleccionado) {
         // Establecer la alineación de este HorizontalLayout a la derecha
         this.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
 
@@ -27,7 +27,7 @@ public class relacionarAlumnoTutorMenu extends HorizontalLayout {
         toggleMenuButton.addClickListener(event -> mainUI.toggleMenuVisibility());
 
         // Configurar el listener para el botón Añadir Relacion
-        alumnosButton.addClickListener(event -> prepararRelacion.prepararRelacionIds(alumnoId, tutorId));
+        alumnosButton.addClickListener(event -> prepararRelacion.prepararRelacionIds(alumnoId, tutorIdSeleccionado));
 
 
     }
