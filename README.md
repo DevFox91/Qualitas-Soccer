@@ -1,0 +1,2 @@
+# AppQS
+Qualitas Soccer proyect

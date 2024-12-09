@@ -1,0 +1,14 @@
+<context-param>
+    <param-name>productionMode</param-name>
+    <param-value>true</param-value>
+</context-param>
+
+<context-param>
+    <param-name>UIProvider</param-name>
+    <param-value>com.vaadin.spring.server.SpringUIProvider</param-value>
+</context-param>
+
+<context-param>
+    <param-name>theme</param-name>
+    <param-value>themeQSoccer</param-value> <!-- Aquí especifica el nombre de tu tema -->
+</context-param>
